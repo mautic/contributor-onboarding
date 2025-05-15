@@ -1,0 +1,175 @@
+name: Education Team - Developer Documentation
+description: Apply to contribute to Mautic's developer documentation
+title: "[Documentation] Developer documentation contributor: (insert your name here)"
+labels: ["onboarding", "education-team", "dev-docs"]
+
+body:
+  - type: markdown
+    attributes:
+      value: |
+        # Developer Documentation Contributor Onboarding
+        
+        Thank you for your interest in contributing to Mautic's developer documentation! This documentation helps developers understand how to work with Mautic's API, plugins, and code.
+        
+  - type: input
+    id: name
+    attributes:
+      label: Full Name
+      description: Your full name as you'd like it to appear as an author
+      placeholder: Zhang Wei
+    validations:
+      required: true
+      
+  - type: input
+    id: email
+    attributes:
+      label: Email Address
+      description: Your preferred email for communications, please write in the format zhang[@]example[.]com
+      placeholder: zhang[@]example[.]com
+    validations:
+      required: true
+      
+  - type: input
+    id: slack
+    attributes:
+      label: Slack Username
+      description: Your username on the Mautic Slack workspace (if you haven't joined yet, please register at https://mautic.org/slack)
+      placeholder: zhangwei
+    validations:
+      required: false
+      
+  - type: input
+    id: github
+    attributes:
+      label: GitHub Username
+      description: Your GitHub username for repository access
+      placeholder: zhangwei-dev
+    validations:
+      required: true
+      
+  - type: dropdown
+    id: mautic_dev_experience
+    attributes:
+      label: Mautic Development Experience
+      description: How would you rate your experience with Mautic development?
+      options:
+        - Beginner (exploring the codebase)
+        - Intermediate (made minor customizations)
+        - Advanced (created plugins or integrations)
+        - Expert (regular core contributor)
+    validations:
+      required: true
+      
+  - type: dropdown
+    id: technical_writing
+    attributes:
+      label: Technical Writing Experience
+      description: How would you rate your technical documentation experience?
+      options:
+        - Beginner (new to technical writing)
+        - Intermediate (some API documentation experience)
+        - Advanced (regular documentation contributor)
+        - Expert (professional technical writer)
+    validations:
+      required: true
+      
+  - type: checkboxes
+    id: dev_skills
+    attributes:
+      label: Technical Skills
+      description: Which technical skills do you have? (Select all that apply)
+      options:
+        - label: PHP
+        - label: Symfony
+        - label: REST API
+        - label: JavaScript
+        - label: MySQL/Database
+        - label: Plugin Development
+        - label: OAuth/Authentication
+        - label: Testing
+        - label: Mautic Architecture
+          
+  - type: checkboxes
+    id: doc_interests
+    attributes:
+      label: Documentation Interests
+      description: Which areas of developer documentation are you interested in contributing to? (Select all that apply)
+      options:
+        - label: API Documentation
+        - label: Plugin Development
+        - label: Theme Development
+        - label: Architecture Overview
+        - label: Authentication
+        - label: Testing and CI/CD
+        - label: Best Practices
+        - label: Development Setup
+          
+  - type: dropdown
+    id: time_commitment
+    attributes:
+      label: Time Availability
+      description: How much time can you commit to documentation contributions?
+      options:
+        - Occasional (a few hours per month)
+        - Regular (2-4 hours per week)
+        - Dedicated (5+ hours per week)
+        - Project-based (varies with projects)
+    validations:
+      required: true
+      
+  - type: textarea
+    id: writing_samples
+    attributes:
+      label: Writing Samples
+      description: Please share links to any technical writing samples or code documentation you've created, in particular related to Mautic or similar software and/or using RST.
+      placeholder: https://github.com/username/project#documentation (include brief descriptions if needed)
+    validations:
+      required: false
+      
+  - type: textarea
+    id: code_experience
+    attributes:
+      label: Development Experience
+      description: Please share any experience you have with Mautic development or related technologies
+      placeholder: I've developed Mautic plugins, contributed to core, worked with similar Symfony applications, etc.
+    validations:
+      required: true
+      
+  - type: textarea
+    id: motivation
+    attributes:
+      label: Motivation
+      description: Why are you interested in contributing to Mautic's developer documentation?
+      placeholder: I believe in improving the developer experience through clear documentation...
+    validations:
+      required: true
+      
+  - type: checkboxes
+    id: agreements
+    attributes:
+      label: Documentation Agreements
+      description: Please confirm the following
+      options:
+        - label: I have read and agree to the [Mautic Code of Conduct](https://www.mautic.org/code-of-conduct)
+          required: true
+        - label: I understand developer documentation requires code samples with all explanations
+          required: true
+        - label: I commit to testing any code examples I provide to ensure they work
+          required: true
+        - label: I will ensure my contributions follow proper technical documentation standards
+          required: true
+        - label: I understand this is a volunteer position
+          required: true
+          
+  - type: markdown
+    attributes:
+      value: |
+        ## Next Steps
+        
+        After submitting this form:
+        1. A member of the Education Team will review your application
+        2. You'll be invited to an orientation on our Read the Docs documentation system and requirements
+        3. You'll receive access to our developer documentation repository
+        4. You'll be guided in setting up the local development environment for documentation
+        
+        Please join the #t-education and #dev channels in Slack if you haven't already done so!
