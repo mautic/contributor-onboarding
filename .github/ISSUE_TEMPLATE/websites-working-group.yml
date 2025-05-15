@@ -1,0 +1,194 @@
+name: Websites Working Group Onboarding
+description: Apply to join the team maintaining Mautic's WordPress websites
+title: "[Websites] Working group application for: (insert your name here)"
+labels: ["onboarding", "websites-working-group"]
+
+body:
+  - type: markdown
+    attributes:
+      value: |
+        # Websites Working Group Onboarding
+        
+        Thank you for your interest in contributing to Mautic's websites! Our websites use WordPress with Elementor and Thrive Themes as page builders. Your skills will help us maintain and improve our online presence.
+        
+  - type: input
+    id: name
+    attributes:
+      label: Full Name
+      description: Your full name as you'd like it to appear in community materials
+      placeholder: Jamal Washington
+    validations:
+      required: true
+      
+  - type: input
+    id: email
+    attributes:
+      label: Email Address
+      description: Your preferred email for communications, please write in the format jamal[@]example[.]com
+      placeholder: jamal[@]example[.]com
+    validations:
+      required: true
+      
+  - type: input
+    id: slack
+    attributes:
+      label: Slack Username
+      description: Your username on the Mautic Slack workspace (if you haven't joined yet, please register at https://mautic.org/slack)
+      placeholder: jamalwashington
+    validations:
+      required: false
+      
+  - type: dropdown
+    id: wordpress_experience
+    attributes:
+      label: WordPress Experience
+      description: How would you rate your experience with WordPress?
+      options:
+        - Beginner (basic understanding)
+        - Intermediate (comfortable with common tasks)
+        - Advanced (custom themes, plugins, etc.)
+        - Expert (professional WordPress developer)
+    validations:
+      required: true
+      
+  - type: dropdown
+    id: elementor_experience
+    attributes:
+      label: Elementor Experience
+      description: How would you rate your experience with Elementor page builder?
+      options:
+        - No experience (willing to learn)
+        - Beginner (some basic usage)
+        - Intermediate (comfortable building pages)
+        - Advanced (custom widgets, templates, etc.)
+        - Expert (professional Elementor developer)
+    validations:
+      required: true
+      
+  - type: dropdown
+    id: thrive_experience
+    attributes:
+      label: Thrive Themes Experience
+      description: How would you rate your experience with Thrive Themes/Architect?
+      options:
+        - No experience (willing to learn)
+        - Beginner (some basic usage)
+        - Intermediate (comfortable building pages)
+        - Advanced (custom templates, symbols, etc.)
+        - Expert (professional Thrive Themes developer)
+    validations:
+      required: true
+      
+  - type: checkboxes
+    id: web_skills
+    attributes:
+      label: Web Development Skills
+      description: Which web development skills do you have? (Select all that apply)
+      options:
+        - label: HTML/CSS
+        - label: JavaScript
+        - label: PHP
+        - label: SEO optimization
+        - label: Website performance optimization
+        - label: Responsive design
+        - label: Web accessibility (WCAG)
+        - label: UI/UX design
+        - label: Git version control
+        - label: Web hosting/server management
+          
+  - type: dropdown
+    id: time_commitment
+    attributes:
+      label: Time Availability
+      description: How much time can you commit to the websites working group?
+      options:
+        - Occasional (a few hours per month)
+        - Regular (2-4 hours per week)
+        - Dedicated (5+ hours per week)
+        - Project-based (varies with projects)
+    validations:
+      required: true
+      
+  - type: checkboxes
+    id: interest_areas
+    attributes:
+      label: Areas of Interest
+      description: Which website tasks interest you most? (Select all that apply)
+      options:
+        - label: Page design and layout
+        - label: Content updates and management
+        - label: Performance optimization
+        - label: SEO improvements
+        - label: Accessibility enhancements
+        - label: Forms and interactive elements
+        - label: Analytics and tracking
+        - label: Landing page creation
+        - label: Documentation pages
+      
+  - type: textarea
+    id: portfolio
+    attributes:
+      label: Website Portfolio
+      description: Please share links to websites you've built or contributed to (especially WordPress sites)
+      placeholder: https://example.com (please briefly describe your role/contributions on each site)
+    validations:
+      required: true
+      
+  - type: textarea
+    id: experience
+    attributes:
+      label: Relevant Experience
+      description: Please share any experience you have with website management, WordPress, or related technologies
+      placeholder: I've managed WordPress sites for X years, worked with Elementor on Y projects, etc.
+    validations:
+      required: true
+      
+  - type: textarea
+    id: motivation
+    attributes:
+      label: Motivation
+      description: Why are you interested in contributing to Mautic's websites?
+      placeholder: I'm passionate about creating user-friendly websites and want to contribute to open source...
+    validations:
+      required: true
+      
+  - type: textarea
+    id: additional
+    attributes:
+      label: Additional Information
+      description: Anything else you'd like us to know?
+      placeholder: Other relevant skills, availability patterns, specific interests, etc.
+    validations:
+      required: false
+      
+  - type: checkboxes
+    id: agreements
+    attributes:
+      label: Website Contributor Agreements
+      description: Please confirm the following
+      options:
+        - label: I have read and agree to the [Mautic Code of Conduct](https://www.mautic.org/code-of-conduct)
+          required: true
+        - label: I understand I will be working on staging environments before changes go live
+          required: true
+        - label: I commit to following Mautic's brand guidelines and design standards
+          required: true
+        - label: I agree to test my changes across multiple devices and screen sizes
+          required: true
+        - label: I understand this is a volunteer position
+          required: true
+        - label: I am willing to participate in bi-weekly asynchronous updates and monthly team meetings
+          required: true
+          
+  - type: markdown
+    attributes:
+      value: |
+        ## Next Steps
+        
+        After submitting this form:
+        1. A member of the websites working group will review your application
+        2. You'll be invited to an onboarding call to review our websites structure and workflows
+        3. You'll receive access to staging environments and relevant resources
+        4. You'll be guided in selecting your first task based on your skills and interests
+        
+        Please join the #wg-websites-team and #t-marketing channels in Slack if you haven't already done so!
