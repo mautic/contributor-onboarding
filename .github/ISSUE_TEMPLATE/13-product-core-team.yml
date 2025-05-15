@@ -105,7 +105,7 @@ body:
   - type: checkboxes
     id: introduction
     attributes:
-      label: Team Introduction
+      label: (Team to complete) Team Introduction
       description: Announce and introduce the new member
       options:
         - label: Introduce to other Core Team members in next team meeting
@@ -116,13 +116,15 @@ body:
   - type: checkboxes
     id: mentorship
     attributes:
-      label: Mentorship Plan
+      label: (Team to complete) Mentorship Plan
       description: Support the new member during their initial period
       options:
         - label: Schedule weekly check-ins for first month
         - label: Set up shadowing opportunities for PR reviews
         - label: Review contribution workflow and decision-making process
         - label: Discuss release cycle responsibilities
+        - label: Assign as assistant release leader for the next release
+        - label: Assign as release leader for an upcoming release
           
   - type: checkboxes
     id: expectations
@@ -139,7 +141,7 @@ body:
   - type: textarea
     id: additional_steps
     attributes:
-      label: Additional Onboarding Steps
+      label: (Team to complete) Additional Onboarding Steps
       description: Any additional steps specific to this Core Team member
       placeholder: Additional access requirements, specialized training, etc.
     validations:
@@ -159,23 +161,19 @@ body:
       value: |
         ## Important Resources
         
-        - [Maintainer Guidelines](https://github.com/mautic/mautic/blob/4.x/MAINTAINERS.md)
+        - [Maintainer Guidelines](https://github.com/mautic/mautic/blob/7.x/MAINTAINERS.md)
         - [Code Governance Policy](https://contribute.mautic.org/policies/code-governance)
-        - [Governance Model](https://contribute.mautic.org/governance-model)
-        - [Core Team Documentation](https://contribute.mautic.org/core-team)
-        - [Release Process](https://contribute.mautic.org/processes/release-process)
-        - [Security Issue Handling](https://contribute.mautic.org/processes/security-issues)
-        - [Community Portal](https://community.mautic.org/profiles/core-team)
-        - [GitHub Core Team](https://github.com/orgs/mautic/teams/core-team)
+        - [Governance Model](https://contribute.mautic.org/governance/governance)
         
-        ## Process Timeline
+        ## Process Timeline (Team to complete)
         
         - Onboarding Start: (insert date)
         - First PR Review: (target date)
-        - First Release Participation: (target release)
+        - First Release Participation as Assistant: (target release)
+        - First Release Participation as Lead: (target release)
         - First Quarterly Review: (insert date)
         
-        ## Process Owners
+        ## Process Owners (Team to complete)
         
         Please assign each section to the person responsible for completing those tasks:
         
