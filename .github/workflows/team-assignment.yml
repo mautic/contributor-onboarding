@@ -7,6 +7,12 @@ on:
 jobs:
   assign-team-leader:
     runs-on: ubuntu-latest
+     # Only run if one of our team labels is involved
+    if: |
+      contains(github.event.issue.labels.*.name, 'community-team') || 
+      contains(github.event.issue.labels.*.name, 'education-team') || 
+      contains(github.event.issue.labels.*.name, 'marketing-team') || 
+      contains(github.event.issue.labels.*.name, 'product-team')
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
