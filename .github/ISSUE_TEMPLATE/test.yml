@@ -28,4 +28,12 @@ body:
       placeholder: aisha[@]example[.]com
     validations:
       required: true
-      
+
+  - type: input
+    id: slack
+    attributes:
+      label: Slack Username
+      description: Your username on the Mautic Slack workspace (if you have one - if not please register at https://mautic.org/slack)
+      placeholder: @aishachowdhury
+    validations:
+      required: false
