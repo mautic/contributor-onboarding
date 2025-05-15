@@ -1,0 +1,182 @@
+name: Marketing Team - Content Writer
+description: Apply to contribute content to the Mautic blog and website
+title: "[Marketing-Content] Writer application for: (insert your name here)"
+labels: ["onboarding", "marketing-team"]
+
+body:
+  - type: markdown
+    attributes:
+      value: |
+        # Marketing Team - Content Writer Onboarding
+        
+        Thank you for your interest in contributing content to Mautic's blog and website! This form will help us understand your experience and writing interests.
+        
+  - type: input
+    id: name
+    attributes:
+      label: Full Name
+      description: Your full name as you'd like it to appear in bylines
+      placeholder: Sofia Novak
+    validations:
+      required: true
+      
+  - type: input
+    id: email
+    attributes:
+      label: Email Address
+      description: Your preferred email for communications, please write in the format sofia[@]example[.]com
+      placeholder: sofia[@]example[.]com
+    validations:
+      required: true
+      
+  - type: input
+    id: slack
+    attributes:
+      label: Slack Username
+      description: Your username on the Mautic Slack workspace (if you haven't joined yet, please register at https://mautic.org/slack)
+      placeholder: sofianovak
+    validations:
+      required: false
+      
+  - type: dropdown
+    id: writing_experience
+    attributes:
+      label: Writing Experience
+      description: How would you describe your content writing experience?
+      options:
+        - Beginner (some personal writing)
+        - Intermediate (blog posts, articles)
+        - Advanced (professional writing experience)
+        - Expert (published author, content strategist)
+    validations:
+      required: true
+      
+  - type: dropdown
+    id: mautic_knowledge
+    attributes:
+      label: Mautic Knowledge
+      description: How would you rate your knowledge of Mautic?
+      options:
+        - Beginner (basic familiarity)
+        - Intermediate (regular user)
+        - Advanced (power user)
+        - Expert (deep technical knowledge)
+    validations:
+      required: true
+      
+  - type: dropdown
+    id: english_proficiency
+    attributes:
+      label: English Proficiency
+      description: What is your level of proficiency in US English? (All submissions should be in US English)
+      options:
+        - Native speaker
+        - Fluent/Bilingual
+        - Advanced
+        - Intermediate
+    validations:
+      required: true
+      
+  - type: dropdown
+    id: time_commitment
+    attributes:
+      label: Content Commitment
+      description: How many articles can you commit to writing?
+      options:
+        - Occasional (1-2 articles per quarter)
+        - Regular (1 article per month)
+        - Frequent (2+ articles per month)
+        - Variable/Project-based
+    validations:
+      required: true
+      
+  - type: checkboxes
+    id: content_topics
+    attributes:
+      label: Content Topics
+      description: What topics are you interested in writing about? (Select all that apply)
+      options:
+        - label: Mautic feature tutorials
+        - label: Marketing automation best practices
+        - label: Email marketing strategies
+        - label: Lead generation techniques
+        - label: Integration guides
+        - label: Case studies
+        - label: Privacy and compliance
+        - label: Marketing trends
+        - label: Open source marketing
+        - label: Technical how-tos
+          
+  - type: textarea
+    id: writing_samples
+    attributes:
+      label: Writing Portfolio
+      description: Please share links to your published writing samples or portfolio
+      placeholder: https://example.com/my-article (include brief descriptions if needed)
+    validations:
+      required: true
+      
+  - type: textarea
+    id: content_ideas
+    attributes:
+      label: Initial Content Ideas
+      description: Please share 2-3 article ideas you'd like to write for the Mautic blog
+      placeholder: "1. Title: [Your title idea]\nSummary: [Brief description of the article concept]\nTarget audience: [Who the article is for]\n\n2. Title: [Your second idea]..."
+    validations:
+      required: true
+      
+  - type: textarea
+    id: bio
+    attributes:
+      label: Author Bio
+      description: Please provide a brief professional bio (50-100 words) that would appear with your articles
+      placeholder: "Sofia Novak is a marketing automation specialist at Example Company. You can follow her on Twitter @sofianovak and read more of her marketing insights on example.com/blog."
+    validations:
+      required: true
+      
+  - type: checkboxes
+    id: agreements
+    attributes:
+      label: Content Agreements
+      description: Please confirm the following
+      options:
+        - label: I have read and agree to the [Mautic Code of Conduct](https://www.mautic.org/code-of-conduct)
+          required: true
+        - label: I understand articles must be 400-650 words (unless otherwise agreed) and submitted at least 7 days before publication
+          required: true
+        - label: I agree to disclose any compensated relationships when recommending products or services
+          required: true
+        - label: I understand I retain copyright to my work, but grant the Mautic Project the right to reuse it
+          required: true
+        - label: I commit to using only properly licensed images and properly attributed quotes
+          required: true
+        - label: I understand articles that are overly promotional or require significant editing may be rejected
+          required: true
+          
+  - type: checkboxes
+    id: content_guidelines
+    attributes:
+      label: Content Guidelines Acknowledgment
+      description: Please confirm you understand our content guidelines
+      options:
+        - label: I will avoid self-promotional content and excessive references to my products/services
+          required: true
+        - label: I will not discuss illegal activities or link to inappropriate content
+          required: true
+        - label: I will submit original content in my own words, with proper citation of sources
+          required: true
+        - label: I will focus on subjects relevant to Mautic, open source software, and marketing
+          required: true
+          
+  - type: markdown
+    attributes:
+      value: |
+        ## Next Steps
+        
+        After submitting this form:
+        1. A Marketing Team member will review your application
+        2. You'll receive an invitation to work on a task on our Editorial Calendar
+        3. You'll be added to the shared Google Drive for content collaboration
+        4. You'll be introduced to the team in the #t-marketing Slack channel
+        
+        Please join the #blog and #t-marketing channels in Slack if you haven't already!
