@@ -1,0 +1,211 @@
+name: MautiCon Event Volunteer
+description: Apply to join the team organizing Mautic Conference events
+title: "[MautiCon] Volunteer application for: (enter your name here)"
+labels: ["onboarding", "mauticon", "event-volunteer", "community-team"]
+
+body:
+  - type: markdown
+    attributes:
+      value: |
+        # MautiCon Event Volunteer Application
+        
+        Thank you for your interest in helping organize Mautic Conference events! This form will help us understand your interests and experience to find the best role for you on our event team.
+        
+  - type: input
+    id: name
+    attributes:
+      label: Full Name
+      description: Your full name as you'd like it to appear in event materials
+      placeholder: Priya Patel
+    validations:
+      required: true
+      
+  - type: input
+    id: email
+    attributes:
+      label: Email Address
+      description: Your preferred email for event communications, please write in the format priya[@]example[.]com
+      placeholder: priya[@]example[.]com
+    validations:
+      required: true
+      
+  - type: input
+    id: slack
+    attributes:
+      label: Slack Username
+      description: Your username on the Mautic Slack workspace (if you haven't joined yet, please register at https://mautic.org/slack)
+      placeholder: priyapatel
+    validations:
+      required: false
+      
+  - type: dropdown
+    id: event_type
+    attributes:
+      label: Event Type Interest
+      description: Which type of Mautic Conference event are you interested in helping with?
+      options:
+        - Online Conference (MautiCon Global)
+        - In-Person Conference
+        - Both Types
+    validations:
+      required: true
+      
+  - type: dropdown
+    id: role_level
+    attributes:
+      label: Role Type
+      description: Are you interested in a leadership role or a contributor role?
+      options:
+        - Leadership Role (more time commitment, greater responsibility)
+        - Contributor Role (more focused responsibilities, less time commitment)
+        - Either (open to both depending on team needs)
+    validations:
+      required: true
+      
+  - type: checkboxes
+    id: online_leadership_roles
+    attributes:
+      label: Online Conference Leadership Roles
+      description: If you selected Online Conference and are interested in leadership roles, which positions interest you? (Select all that apply)
+      options:
+        - label: Volunteer Coordinator (5-10 hours/week, available during event)
+        - label: Program Lead (3-4 hours/week, available during event)
+        - label: Design Lead (3-4 hours/week, front-loaded)
+        - label: Marketing and Outreach Lead (3-4 hours/week)
+        - label: Web Tech Lead (2-3 hours/week, front-loaded)
+        - label: Sponsorship Lead (2-3 hours/week, front-loaded)
+          
+  - type: checkboxes
+    id: online_contributor_roles
+    attributes:
+      label: Online Conference Contributor Roles
+      description: If you selected Online Conference and are interested in contributor roles, which positions interest you? (Select all that apply)
+      options:
+        - label: Program Reviewer (1-2 hours/week, front-loaded)
+        - label: Track Lead (1-2 hours/week before event, available during assigned tracks)
+        - label: Moderator (1-2 hours before event, available during assigned times)
+        - label: Design Team Member (1-2 hours/week, front-loaded)
+        - label: Marketing and Outreach Member (1-2 hours/week)
+        - label: Speaker Communications (1-2 hours/week)
+        - label: Sponsor Communications (1-2 hours/week)
+        - label: Web Team Member (1-2 hours/week, variable)
+        - label: Runner (available during event)
+          
+  - type: checkboxes
+    id: inperson_leadership_roles
+    attributes:
+      label: In-Person Conference Leadership Roles
+      description: If you selected In-Person Conference and are interested in leadership roles, which positions interest you? (Select all that apply)
+      options:
+        - label: Volunteer Coordinator (5-10 hours/week, available during event)
+        - label: Venue Lead (2-3 hours/week, front-loaded, same country as venue preferred)
+        - label: Program Lead (4-5 hours/week, available during event)
+        - label: Design Lead (3-4 hours/week, front-loaded)
+        - label: Audio Visual Lead (2-3 hours/week, increased before event)
+        - label: Marketing and Outreach Lead (4-5 hours/week)
+        - label: Web Tech Lead (4-5 hours/week, front-loaded)
+        - label: Sponsorship Lead (2-3 hours/week, front-loaded)
+        - label: Contribution Lead (2-3 hours/week, variable)
+          
+  - type: checkboxes
+    id: inperson_contributor_roles
+    attributes:
+      label: In-Person Conference Contributor Roles
+      description: If you selected In-Person Conference and are interested in contributor roles, which positions interest you? (Select all that apply)
+      options:
+        - label: Program Reviewer (1-2 hours/week, front-loaded)
+        - label: Track Lead (1-2 hours/week, available during assigned tracks)
+        - label: Social Organizer (1-2 hours/week, available during event)
+        - label: Code of Conduct Contact Person (1-2 hours before event, available during event)
+        - label: Design Team Member (1-2 hours/week, front-loaded)
+        - label: Marketing and Outreach Member (1-2 hours/week)
+        - label: Speaker Communications (2-3 hours/week)
+        - label: Sponsor Communications (1-2 hours/week)
+        - label: Web Team Member (1-2 hours/week, variable)
+        - label: Runner (available during event)
+        - label: Contribution Mentor (1-2 hours/week, help during contribution day)
+          
+  - type: dropdown
+    id: languages
+    attributes:
+      label: Languages Spoken
+      description: Which languages are you comfortable communicating in? (Important for track leads and international sessions)
+      multiple: true
+      options:
+        - English
+        - Portuguese
+        - Hindi
+        - Spanish
+        - French
+        - German
+        - Other (please specify in "Additional Information")
+    validations:
+      required: true
+      
+  - type: dropdown
+    id: travel_availability
+    attributes:
+      label: Travel Availability
+      description: For in-person events, are you able to travel to event locations? (Leadership roles require on-site presence)
+      options:
+        - Yes, I can travel to any location
+        - Yes, but with regional limitations (specify in Additional Information)
+        - No, I can only support online aspects
+        - Not applicable (only interested in online events)
+    validations:
+      required: true
+      
+  - type: textarea
+    id: experience
+    attributes:
+      label: Relevant Experience
+      description: Please share any experience you have with event planning, community organizing, or relevant skills for your chosen roles
+      placeholder: I've organized meetups for the past 3 years, have experience with audiovisual equipment setup, etc.
+    validations:
+      required: true
+      
+  - type: textarea
+    id: mautic_experience
+    attributes:
+      label: Mautic Experience
+      description: Please describe your experience with Mautic and the Mautic community
+      placeholder: I've been using Mautic for 2 years, have contributed to documentation, attended previous MautiCon events, etc.
+    validations:
+      required: true
+      
+  - type: textarea
+    id: additional
+    attributes:
+      label: Additional Information
+      description: Any other relevant information about your availability, skills, or preferences
+      placeholder: Specific availability constraints, skills not mentioned above, etc.
+    validations:
+      required: false
+      
+  - type: checkboxes
+    id: agreements
+    attributes:
+      label: Agreements
+      description: Please confirm the following
+      options:
+        - label: I understand the time commitment required for my selected role(s) as outlined in the role descriptions
+          required: true
+        - label: I have read and agree to the [Mautic Code of Conduct](https://www.mautic.org/code-of-conduct)
+          required: true
+        - label: I understand leadership roles for in-person events require physical attendance at the event
+          required: true
+        - label: I understand this is a volunteer position
+          required: true
+          
+  - type: markdown
+    attributes:
+      value: |
+        ## Next Steps
+        
+        After submitting this application:
+        1. A member of the MautiCon organizing team will review your application
+        2. You'll be contacted about specific role opportunities based on your interests and team needs
+        3. You'll be invited to join the next MautiCon planning meeting
+        4. You'll receive role-specific onboarding information if selected
+        
+        Please join the #mauticon channel in Slack if you haven't already done so!
