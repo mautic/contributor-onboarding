@@ -78,7 +78,7 @@ jobs:
                 // Update or create the variable for next time
                 try {
                   if (variableExists) {
-                    await github.rest.actions.updateRepoVariable({
+                    await github.rest.actions.updateRepositoryVariable({
                       owner: context.repo.owner,
                       repo: context.repo.repo,
                       name: varName,
@@ -86,7 +86,7 @@ jobs:
                     });
                     console.log(`Updated variable ${varName} to ${nextIndex}`);
                   } else {
-                    await github.rest.actions.createRepoVariable({
+                    await github.rest.actions.createRepositoryVariable({
                       owner: context.repo.owner,
                       repo: context.repo.repo,
                       name: varName,
