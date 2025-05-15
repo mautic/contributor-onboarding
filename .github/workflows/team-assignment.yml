@@ -16,32 +16,29 @@ jobs:
       contains(github.event.issue.labels.*.name, 'marketing-team') || 
       contains(github.event.issue.labels.*.name, 'product-team')
     steps:
-      - name: Check for variable existence
-        id: check-vars
+      - name: Check and create variables if needed
         run: |
-          # Check if variables exist using GitHub CLI
-          if gh variable list -R ${{ github.repository }} | grep -q "LAST_ASSIGNED_COMMUNITY_TEAM"; then
-            echo "vars_exist=true" >> $GITHUB_OUTPUT
-          else
-            echo "vars_exist=false" >> $GITHUB_OUTPUT
-          fi
+          # Create variables if they don't exist
+          gh variable list -R ${{ github.repository }} | grep -q "LAST_ASSIGNED_COMMUNITY_TEAM" || \
+            gh variable set LAST_ASSIGNED_COMMUNITY_TEAM -R ${{ github.repository }} -b "0"
+            
+          gh variable list -R ${{ github.repository }} | grep -q "LAST_ASSIGNED_EDUCATION_TEAM" || \
+            gh variable set LAST_ASSIGNED_EDUCATION_TEAM -R ${{ github.repository }} -b "0"
+            
+          gh variable list -R ${{ github.repository }} | grep -q "LAST_ASSIGNED_MARKETING_TEAM" || \
+            gh variable set LAST_ASSIGNED_MARKETING_TEAM -R ${{ github.repository }} -b "0"
+            
+          gh variable list -R ${{ github.repository }} | grep -q "LAST_ASSIGNED_PRODUCT_TEAM" || \
+            gh variable set LAST_ASSIGNED_PRODUCT_TEAM -R ${{ github.repository }} -b "0"
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          
-      - name: Create variables if needed
-        if: steps.check-vars.outputs.vars_exist == 'false'
-        run: |
-          gh variable set LAST_ASSIGNED_COMMUNITY_TEAM -R ${{ github.repository }} -b "0"
-          gh variable set LAST_ASSIGNED_EDUCATION_TEAM -R ${{ github.repository }} -b "0"
-          gh variable set LAST_ASSIGNED_MARKETING_TEAM -R ${{ github.repository }} -b "0" 
-          gh variable set LAST_ASSIGNED_PRODUCT_TEAM -R ${{ github.repository }} -b "0"
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          # PAT on Ruth's account, 365 day validity.
+          GITHUB_TOKEN: ${{ secrets.REPO_PAT }}
           
       - name: Assign team leader
         uses: actions/github-script@v6
         with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
+           # PAT on Ruth's account, 365 day validity.
+          github-token: ${{ secrets.REPO_PAT }}
           script: |
             const issue = context.payload.issue;
             if (!issue) return;
@@ -78,7 +75,7 @@ jobs:
                 currentIndex = parseInt(output.trim()) || 0;
                 console.log(`Current index for ${varName}: ${currentIndex}`);
               } catch (error) {
-                console.log(`Could not get variable ${varName}, using default`);
+                console.log(`Could not get variable ${varName}, using default 0`);
               }
               
               // Calculate next index
