@@ -6,7 +6,7 @@ on:
 
 permissions:
   issues: write
-  actions: write  # This permission is needed to manage variables
+  actions: write
 
 jobs:
   assign-team-leader:
@@ -17,7 +17,62 @@ jobs:
       contains(github.event.issue.labels.*.name, 'marketing-team') || 
       contains(github.event.issue.labels.*.name, 'product-team')
     steps:
-      - name: Assign team leader
+      - name: Manually create variables if needed
+        uses: actions/github-script@v6
+        id: create-vars
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            // This step just creates variables once if they don't exist
+            try {
+              await github.request('POST /repos/{owner}/{repo}/actions/variables', {
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                name: 'LAST_ASSIGNED_COMMUNITY_TEAM',
+                value: '0'
+              });
+              console.log('Created LAST_ASSIGNED_COMMUNITY_TEAM');
+            } catch (error) {
+              console.log('LAST_ASSIGNED_COMMUNITY_TEAM variable may already exist');
+            }
+            
+            try {
+              await github.request('POST /repos/{owner}/{repo}/actions/variables', {
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                name: 'LAST_ASSIGNED_EDUCATION_TEAM',
+                value: '0'
+              });
+              console.log('Created LAST_ASSIGNED_EDUCATION_TEAM');
+            } catch (error) {
+              console.log('LAST_ASSIGNED_EDUCATION_TEAM variable may already exist');
+            }
+            
+            try {
+              await github.request('POST /repos/{owner}/{repo}/actions/variables', {
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                name: 'LAST_ASSIGNED_MARKETING_TEAM',
+                value: '0'
+              });
+              console.log('Created LAST_ASSIGNED_MARKETING_TEAM');
+            } catch (error) {
+              console.log('LAST_ASSIGNED_MARKETING_TEAM variable may already exist');
+            }
+            
+            try {
+              await github.request('POST /repos/{owner}/{repo}/actions/variables', {
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                name: 'LAST_ASSIGNED_PRODUCT_TEAM',
+                value: '0'
+              });
+              console.log('Created LAST_ASSIGNED_PRODUCT_TEAM');
+            } catch (error) {
+              console.log('LAST_ASSIGNED_PRODUCT_TEAM variable may already exist');
+            }
+          
+      - name: Assign team leader using variables
         uses: actions/github-script@v6
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
@@ -43,21 +98,19 @@ jobs:
               const leaders = teamLeaders[matchingTeam];
               const varName = `LAST_ASSIGNED_${matchingTeam.replace(/-/g, '_').toUpperCase()}`;
               
-              // Get the current index from a variable
+              // Get current variable value
               let currentIndex = 0;
-              let variableExists = false;
-              
               try {
-                const { data } = await github.rest.actions.getRepoVariable({
+                const response = await github.request('GET /repos/{owner}/{repo}/actions/variables/{name}', {
                   owner: context.repo.owner,
                   repo: context.repo.repo,
                   name: varName
                 });
-                currentIndex = parseInt(data.value) || 0;
-                variableExists = true;
-                console.log(`Found existing variable ${varName} with value ${currentIndex}`);
+                currentIndex = parseInt(response.data.value) || 0;
+                console.log(`Current index for ${varName}: ${currentIndex}`);
               } catch (error) {
-                console.log(`Variable ${varName} not found, will create it`);
+                console.log(`Could not get variable ${varName}: ${error.message}`);
+                currentIndex = 0;
               }
               
               // Calculate next index
@@ -75,29 +128,19 @@ jobs:
                 });
                 console.log(`Assigned issue #${issue.number} to ${assignee} for team ${matchingTeam}`);
                 
-                // Update or create the variable for next time
+                // Update the variable with new value
                 try {
-                  if (variableExists) {
-                    await github.rest.actions.updateRepositoryVariable({
-                      owner: context.repo.owner,
-                      repo: context.repo.repo,
-                      name: varName,
-                      value: nextIndex.toString()
-                    });
-                    console.log(`Updated variable ${varName} to ${nextIndex}`);
-                  } else {
-                    await github.rest.actions.createRepositoryVariable({
-                      owner: context.repo.owner,
-                      repo: context.repo.repo,
-                      name: varName,
-                      value: nextIndex.toString()
-                    });
-                    console.log(`Created variable ${varName} with value ${nextIndex}`);
-                  }
+                  await github.request('PATCH /repos/{owner}/{repo}/actions/variables/{name}', {
+                    owner: context.repo.owner,
+                    repo: context.repo.repo,
+                    name: varName,
+                    value: nextIndex.toString()
+                  });
+                  console.log(`Updated ${varName} to ${nextIndex}`);
                 } catch (updateError) {
-                  console.error(`Error managing variable: ${updateError.message}`);
+                  console.error(`Error updating variable: ${updateError.message}`);
                 }
               } catch (error) {
-                console.error(`Error assigning issue to ${assignee}: ${error.message}`);
+                console.error(`Error assigning issue: ${error.message}`);
               }
             }
