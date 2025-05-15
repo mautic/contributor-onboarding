@@ -1,0 +1,183 @@
+name: Marketing Team - Designer
+description: Apply to contribute design work to the Mautic community
+title: "[Marketing-Design] Designer application for: (insert your name here)"
+labels: ["onboarding", "marketing-team", "design"]
+
+body:
+  - type: markdown
+    attributes:
+      value: |
+        # Designer Onboarding
+        
+        Thank you for your interest in contributing as a designer to the Mautic community! Design skills are in high demand, and your contributions will make a significant impact.
+        
+  - type: input
+    id: name
+    attributes:
+      label: Full Name
+      description: Your full name as you'd like it to appear in community materials
+      placeholder: Mateo Rodriguez
+    validations:
+      required: true
+      
+  - type: input
+    id: email
+    attributes:
+      label: Email Address
+      description: Your preferred email for communications, please write in the format mateo[@]example[.]com
+      placeholder: mateo[@]example[.]com
+    validations:
+      required: true
+      
+  - type: input
+    id: slack
+    attributes:
+      label: Slack Username
+      description: Your username on the Mautic Slack workspace (if you haven't joined yet, please register at https://mautic.org/slack)
+      placeholder: mateorodriguez
+    validations:
+      required: false
+      
+  - type: dropdown
+    id: design_experience
+    attributes:
+      label: Design Experience
+      description: How would you describe your overall design experience?
+      options:
+        - Beginner (1-2 years experience)
+        - Intermediate (2-5 years experience)
+        - Advanced (5-10 years experience)
+        - Expert (10+ years experience)
+    validations:
+      required: true
+      
+  - type: checkboxes
+    id: design_areas
+    attributes:
+      label: Design Expertise
+      description: In which design areas do you have experience? (Select all that apply)
+      options:
+        - label: UI/UX Design
+        - label: Web Design
+        - label: Graphic Design
+        - label: Illustration
+        - label: Brand Design
+        - label: Information Design
+        - label: Icon Design
+        - label: Print Design
+        - label: Design Systems
+        - label: Typography
+        - label: Motion Design/Animation
+          
+  - type: checkboxes
+    id: design_tools
+    attributes:
+      label: Design Tools
+      description: Which design tools are you proficient with? (Select all that apply)
+      options:
+        - label: Figma
+        - label: Adobe XD
+        - label: Sketch
+        - label: Adobe Photoshop
+        - label: Adobe Illustrator
+        - label: Adobe InDesign
+        - label: Affinity Designer
+        - label: Prototyping tools (InVision, Marvel, etc.)
+        - label: CSS/HTML (for implementation)
+        - label: Other (please specify in Additional Information)
+          
+  - type: checkboxes
+    id: interest_areas
+    attributes:
+      label: Areas of Interest
+      description: Which Mautic design initiatives interest you most? (Select all that apply)
+      options:
+        - label: Product Team - visual resources for new features
+        - label: Marketing Team - newsletter designs
+        - label: Website design improvements
+        - label: Mautic UI/UX improvements
+        - label: User documentation illustrations
+        - label: Pattern library/Design system
+        - label: User Experience Tiger Team
+        - label: Strategic Initiatives - designing for new features
+      validations:
+        required: true
+      
+  - type: dropdown
+    id: time_commitment
+    attributes:
+      label: Time Availability
+      description: How much time can you commit to design contributions?
+      options:
+        - Occasional (a few hours per month)
+        - Regular (2-4 hours per week)
+        - Dedicated (5+ hours per week)
+        - Project-based (varies with projects)
+    validations:
+      required: true
+      
+  - type: textarea
+    id: portfolio
+    attributes:
+      label: Design Portfolio
+      description: Please share links to your design portfolio or examples of your work
+      placeholder: https://example.com/portfolio or links to specific design examples
+    validations:
+      required: true
+      
+  - type: textarea
+    id: experience
+    attributes:
+      label: Relevant Experience
+      description: Please share any experience you have with open source projects, design systems, or relevant work
+      placeholder: I've contributed designs to X project, or I have experience with design systems like...
+    validations:
+      required: true
+      
+  - type: textarea
+    id: motivation
+    attributes:
+      label: Motivation
+      description: Why are you interested in contributing design work to Mautic?
+      placeholder: I'm passionate about improving user experiences in open source software...
+    validations:
+      required: true
+      
+  - type: textarea
+    id: additional
+    attributes:
+      label: Additional Information
+      description: Anything else you'd like us to know?
+      placeholder: Other skills, availability constraints, specific design interests, etc.
+    validations:
+      required: false
+      
+  - type: checkboxes
+    id: agreements
+    attributes:
+      label: Design Agreements
+      description: Please confirm the following
+      options:
+        - label: I have read and agree to the [Mautic Code of Conduct](https://www.mautic.org/code-of-conduct)
+          required: true
+        - label: I understand I need to share source files in the Mautic Community's public Google Drive
+          required: true
+        - label: I will only use images with appropriate copyright permissions and will share license information
+          required: true
+        - label: I understand this is a volunteer position
+          required: true
+        - label: I am willing to participate in fortnightly team meetings on Slack
+          required: true
+          
+  - type: markdown
+    attributes:
+      value: |
+        ## Next Steps
+        
+        After submitting this form:
+        1. A member of the Marketing Team will review your application
+        2. You'll be introduced to the community in the #design Slack channel
+        3. You'll receive access to design resources and the Google Drive
+        4. You'll be guided on how to find design tasks that match your interests and skills
+        
+        Please join the #design channel in Slack, and the [Open Source Design](https://opensourcedesign.net/) community if you haven't already done so!
