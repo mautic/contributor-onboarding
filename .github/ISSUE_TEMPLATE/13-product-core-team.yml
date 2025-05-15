@@ -1,0 +1,186 @@
+name: Product Team - Core Team 
+description: Checklist for onboarding a new Core Team member
+title: "[Core Team] Onboarding for: (insert name here)"
+labels: ["onboarding", "core-team", "product-team"]
+
+body:
+  - type: markdown
+    attributes:
+      value: |
+        # Core Team Member Onboarding
+        
+        This issue tracks the onboarding process for a new Core Team member. The Core Team is responsible for Mautic's code base, reviewing PRs, ensuring security issues are resolved promptly, and keeping Mautic at the forefront of marketing automation technologies.
+        
+        **IMPORTANT:** All steps involving credentials should be communicated securely. Do not include passwords or 2FA codes in this issue.
+        
+  - type: input
+    id: member_name
+    attributes:
+      label: Core Team Member Name
+      description: Full name of the new Core Team member
+      placeholder: Fatima Rodriguez
+    validations:
+      required: true
+      
+  - type: input
+    id: personal_email
+    attributes:
+      label: Personal Email Address
+      description: Email address where Mautic credentials will be sent
+      placeholder: fatima[@]example[.]com
+    validations:
+      required: true
+      
+  - type: input
+    id: github_username
+    attributes:
+      label: GitHub Username
+      description: GitHub username for team access
+      placeholder: fatima-dev
+    validations:
+      required: true
+      
+  - type: input
+    id: slack_username
+    attributes:
+      label: Slack Username
+      description: Username on the Mautic Slack workspace
+      placeholder: fatimarodriguez
+    validations:
+      required: true
+      
+  - type: input
+    id: timezone
+    attributes:
+      label: Timezone/Location
+      description: Timezone for scheduling meetings and coordinating work
+      placeholder: UTC+1 (Paris, France)
+    validations:
+      required: true
+      
+  - type: input
+    id: mentor_username
+    attributes:
+      label: Mentor/Sponsor
+      description: Existing Core Team member who will mentor the new member
+      placeholder: David Kim
+    validations:
+      required: true
+      
+  - type: checkboxes
+    id: pre_onboarding
+    attributes:
+      label: (Team to complete) Pre-Onboarding Verification
+      description: Confirm eligibility and approval process is complete
+      options:
+        - label: ⅔ majority vote confirmed in Core Team private Slack channel
+        - label: Candidate has confirmed willingness and availability to commit to the role
+        - label: Candidate has demonstrated sustained contribution to the project
+        - label: Code of Conduct has been reviewed and accepted by candidate
+          
+  - type: checkboxes
+    id: access_setup
+    attributes:
+      label: (Team to complete) Access Setup
+      description: Configure access to required platforms and resources
+      options:
+        - label: Add to GitHub Mautic organization as a Maintainer
+        - label: Add to Core Team private Slack channel
+        - label: Add to MAINTAINERS file on GitHub
+        - label: Update Community Portal with new Core Team member
+        - label: Provide access to relevant documentation and team resources
+          
+  - type: checkboxes
+    id: initial_tasks
+    attributes:
+      label: (Team to complete) Initial Responsibilities
+      description: First tasks to integrate the new member into the workflow
+      options:
+        - label: Schedule initial 1:1 orientation with Project Lead
+        - label: Assign first PR review tasks with mentor oversight
+        - label: Identify upcoming release to participate in
+        - label: Review maintainer guidelines document
+        - label: Discuss specific areas of focus within the codebase
+          
+  - type: checkboxes
+    id: introduction
+    attributes:
+      label: Team Introduction
+      description: Announce and introduce the new member
+      options:
+        - label: Introduce to other Core Team members in next team meeting
+        - label: Post introduction in Community Portal
+        - label: Announce in general Slack channel
+        - label: Update team page on Mautic website
+          
+  - type: checkboxes
+    id: mentorship
+    attributes:
+      label: Mentorship Plan
+      description: Support the new member during their initial period
+      options:
+        - label: Schedule weekly check-ins for first month
+        - label: Set up shadowing opportunities for PR reviews
+        - label: Review contribution workflow and decision-making process
+        - label: Discuss release cycle responsibilities
+          
+  - type: checkboxes
+    id: expectations
+    attributes:
+      label: Expectations Review
+      description: Ensure clear understanding of Core Team responsibilities
+      options:
+        - label: Review PR review responsibilities and process
+        - label: Discuss Tiger Team collaboration approach
+        - label: Clarify security issue handling protocols
+        - label: Review code governance policy and merge requirements
+        - label: Explain release notes contribution expectations
+          
+  - type: textarea
+    id: additional_steps
+    attributes:
+      label: Additional Onboarding Steps
+      description: Any additional steps specific to this Core Team member
+      placeholder: Additional access requirements, specialized training, etc.
+    validations:
+      required: false
+      
+  - type: textarea
+    id: notes
+    attributes:
+      label: Notes
+      description: Any notes or issues encountered during the onboarding process
+      placeholder: Document any questions, concerns, or special circumstances
+    validations:
+      required: false
+      
+  - type: markdown
+    attributes:
+      value: |
+        ## Important Resources
+        
+        - [Maintainer Guidelines](https://github.com/mautic/mautic/blob/4.x/MAINTAINERS.md)
+        - [Code Governance Policy](https://contribute.mautic.org/policies/code-governance)
+        - [Governance Model](https://contribute.mautic.org/governance-model)
+        - [Core Team Documentation](https://contribute.mautic.org/core-team)
+        - [Release Process](https://contribute.mautic.org/processes/release-process)
+        - [Security Issue Handling](https://contribute.mautic.org/processes/security-issues)
+        - [Community Portal](https://community.mautic.org/profiles/core-team)
+        - [GitHub Core Team](https://github.com/orgs/mautic/teams/core-team)
+        
+        ## Process Timeline
+        
+        - Onboarding Start: (insert date)
+        - First PR Review: (target date)
+        - First Release Participation: (target release)
+        - First Quarterly Review: (insert date)
+        
+        ## Process Owners
+        
+        Please assign each section to the person responsible for completing those tasks:
+        
+        - Access Setup: 
+        - Initial Tasks: 
+        - Team Introduction: 
+        - Mentorship Plan: 
+        - Expectations Review: 
