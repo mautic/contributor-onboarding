@@ -1,0 +1,156 @@
+name: Product Team - Tester
+description: Join the Product Team as a PR/release tester
+title: "[Product-Tester] Onboarding request for: (add your name here)"
+labels: ["onboarding", "product-team", "role-tester"]
+
+body:
+  - type: markdown
+    attributes:
+      value: |
+        # Product Team - Tester Onboarding
+        
+        Thank you for your interest in joining Mautic as a product tester! Your help testing PRs and releases is crucial for maintaining quality.
+        
+  - type: input
+    id: name
+    attributes:
+      label: Full Name
+      description: Your full name as you'd like it to appear in community materials
+      placeholder: Sofia Novak
+    validations:
+      required: true
+      
+  - type: input
+    id: email
+    attributes:
+      label: Email Address
+      description: Your preferred email for communications, please write in the format sofia[@]example[.]com
+      placeholder: sofia[@]example[.]com
+    validations:
+      required: true
+      
+  - type: input
+    id: slack
+    attributes:
+      label: Slack Username
+      description: Your username on the Mautic Slack workspace (if you have one, if not please register at https://mautic.org/slack)
+      placeholder: janesmith
+    validations:
+      required: false
+      
+  - type: dropdown
+    id: mautic_experience
+    attributes:
+      label: Mautic Experience
+      description: How long have you been using Mautic?
+      options:
+        - Less than 6 months
+        - 6 months to 1 year
+        - 1-2 years
+        - 2-5 years
+        - 5+ years
+    validations:
+      required: true
+      
+  - type: dropdown
+    id: testing_experience
+    attributes:
+      label: Testing Experience
+      description: Do you have previous software testing experience?
+      options:
+        - No formal testing experience
+        - Some informal testing experience
+        - Experienced tester
+        - Professional QA background
+    validations:
+      required: true
+      
+  - type: dropdown
+    id: environment
+    attributes:
+      label: Testing Environment
+      description: What environments can you test in? (Select all that apply)
+      multiple: true
+      options:
+        - Windows
+        - MacOS
+        - Linux
+        - Docker
+        - Shared hosting
+        - VPS/Dedicated server
+    validations:
+      required: true
+      
+  - type: dropdown
+    id: time_commitment
+    attributes:
+      label: Time Availability
+      description: How much time can you commit to testing?
+      options:
+        - 1-2 hours per week
+        - 3-5 hours per week
+        - Only for specific releases
+        - Variable/Unsure
+    validations:
+      required: true
+      
+  - type: checkboxes
+    id: test_types
+    attributes:
+      label: Types of Testing
+      description: What types of testing are you interested in? (Select all that apply)
+      options:
+        - label: Pull Request testing
+          required: false
+        - label: Pre-Release testing
+          required: false
+        - label: Exploratory testing
+          required: false
+        - label: Regression testing
+          required: false
+        - label: Integration testing
+          required: false
+        - label: Security testing
+          required: false
+          
+  - type: textarea
+    id: tools
+    attributes:
+      label: Tools and Integrations
+      description: List any tools, integrations, or specific Mautic features you're familiar with
+      placeholder: I'm familiar with the email builder, campaign builder, and have integrated Mautic with...
+    validations:
+      required: false
+      
+  - type: textarea
+    id: motivation
+    attributes:
+      label: Motivation
+      description: Why are you interested in joining as a tester?
+      placeholder: I want to help improve quality because...
+    validations:
+      required: true
+      
+  - type: checkboxes
+    id: agreements
+    attributes:
+      label: Agreements
+      description: Please confirm the following
+      options:
+        - label: I have read and agree to the [Mautic Code of Conduct](https://www.mautic.org/code-of-conduct)
+          required: true
+        - label: I understand this is a volunteer position
+          required: true
+        - label: I am willing to follow the testing guidelines and provide detailed feedback
+          required: true
+          
+  - type: markdown
+    attributes:
+      value: |
+        ## Next Steps
+        
+        After submitting this form:
+        1. A product team member will review your application
+        2. You'll receive access to testing guidelines and resources
+        3. You'll be added to the testers GitHub team
+        4. You'll be invited to the product testing channel on Slack
