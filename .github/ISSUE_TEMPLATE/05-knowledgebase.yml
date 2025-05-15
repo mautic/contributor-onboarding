@@ -1,0 +1,163 @@
+name: Education Team - Knowledgebase
+description: Apply to contribute to Mautic's knowledgebase articles
+title: "[Documentation] Knowledgebase contributor: (insert your name here)"
+labels: ["onboarding", "education-team", "knowledgebase"]
+
+body:
+  - type: markdown
+    attributes:
+      value: |
+        # Knowledgebase Contributor Onboarding
+        
+        Thank you for your interest in contributing to Mautic's knowledgebase! These articles help users quickly solve specific problems with practical, conversational guidance.
+        
+  - type: input
+    id: name
+    attributes:
+      label: Full Name
+      description: Your full name as you'd like it to appear as an author
+      placeholder: Kwame Osei
+    validations:
+      required: true
+      
+  - type: input
+    id: email
+    attributes:
+      label: Email Address
+      description: Your preferred email for communications, please write in the format kwame[@]example[.]com. If the address you use to sign into the Knowledgebase is different, please let us know in the additional comments section using the same format.
+      placeholder: kwame[@]example[.]com
+    validations:
+      required: true
+      
+  - type: input
+    id: slack
+    attributes:
+      label: Slack Username
+      description: Your username on the Mautic Slack workspace (if you haven't joined yet, please register at https://mautic.org/slack)
+      placeholder: kwameosei
+    validations:
+      required: false
+      
+  - type: dropdown
+    id: mautic_experience
+    attributes:
+      label: Mautic Experience
+      description: How would you rate your practical experience with Mautic?
+      options:
+        - Beginner (less than 6 months)
+        - Intermediate (6 months to 1 year)
+        - Advanced (1-2 years)
+        - Expert (2+ years)
+    validations:
+      required: true
+      
+  - type: dropdown
+    id: troubleshooting_experience
+    attributes:
+      label: Troubleshooting Experience
+      description: How would you rate your experience solving Mautic issues?
+      options:
+        - Beginner (solved basic problems)
+        - Intermediate (solved various common issues)
+        - Advanced (regularly help others with issues)
+        - Expert (deep troubleshooting expertise)
+    validations:
+      required: true
+      
+  - type: dropdown
+    id: writing_style
+    attributes:
+      label: Writing Style
+      description: The knowledgebase requires a conversational, practical writing style. How comfortable are you with this approach?
+      options:
+        - Very comfortable (natural conversational writer)
+        - Comfortable (can adapt to conversational style)
+        - Somewhat comfortable (may need some guidance)
+        - Learning (would appreciate feedback and direction)
+    validations:
+      required: true
+      
+  - type: checkboxes
+    id: kb_interests
+    attributes:
+      label: Knowledgebase Topic Interests
+      description: Which areas of the knowledgebase are you interested in contributing to? (Select all that apply)
+      options:
+        - label: Installation & Upgrades
+        - label: FAQs
+        - label: Tutorials
+        - label: Marketing
+        - label: Best Practices
+        - label: Troubleshooting
+          
+  - type: dropdown
+    id: time_commitment
+    attributes:
+      label: Time Availability
+      description: How much time can you commit to knowledgebase contributions?
+      options:
+        - Occasional (a few hours per month)
+        - Regular (2-4 hours per week)
+        - Dedicated (5+ hours per week)
+        - Project-based (varies with projects)
+    validations:
+      required: true
+      
+  - type: textarea
+    id: article_ideas
+    attributes:
+      label: Article Ideas
+      description: Please share 2-3 knowledgebase article ideas you'd like to write
+      placeholder: "1. Title: Troubleshooting Email Delivery Issues\nSummary: Steps to diagnose and fix common email delivery problems\n\n2. Title: Quick Guide to Custom Field Migration\nSummary: How to safely move custom fields when upgrading"
+    validations:
+      required: true
+      
+  - type: textarea
+    id: experience
+    attributes:
+      label: Relevant Experience
+      description: Please share any experience you have with Mautic troubleshooting, support, or creating help content
+      placeholder: I've helped users in the forums with installation issues, created internal guides for my team, etc.
+    validations:
+      required: true
+      
+  - type: textarea
+    id: motivation
+    attributes:
+      label: Motivation
+      description: Why are you interested in contributing to Mautic's knowledgebase?
+      placeholder: I enjoy helping others solve problems, and want to share solutions I've discovered...
+    validations:
+      required: true
+      
+  - type: checkboxes
+    id: agreements
+    attributes:
+      label: Knowledgebase Agreements
+      description: Please confirm the following
+      options:
+        - label: I have read and agree to the [Mautic Code of Conduct](https://www.mautic.org/code-of-conduct)
+          required: true
+        - label: I understand knowledgebase articles require a conversational, practical tone
+          required: true
+        - label: I commit to keeping articles concise (400-650 words) and focused on solutions
+          required: true
+        - label: I will include step-by-step instructions and clear examples
+          required: true
+        - label: I understand articles should be non-promotional and vendor-neutral
+          required: true
+        - label: I understand this is a volunteer position
+          required: true
+          
+  - type: markdown
+    attributes:
+      value: |
+        ## Next Steps
+        
+        After submitting this form:
+        1. A member of the Education Team will review your application
+        2. You'll be invited to an orientation on our knowledgebase platform and style requirements
+        3. You'll receive access to create and edit knowledgebase articles
+        4. You'll get feedback on your initial article ideas and guidance on next steps
+        
+        Please join the #t-education channel in Slack if you haven't already done so!
