@@ -1,0 +1,44 @@
+name: Team Issue Assignment
+
+on:
+  issues:
+    types: [opened, labeled]
+
+jobs:
+  assign-team:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Assign team based on issue label
+        uses: actions/github-script@v6
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const issue = context.payload.issue;
+            if (!issue) return;
+            
+            const labels = issue.labels.map(label => label.name);
+            
+            // Define mapping of labels to teams
+            const teamAssignments = {
+              'product-team': 'product-team-leaders',
+              'education-team': 'education-team-leaders', 
+              'marketing-team': 'marketing-team-leaders',
+              'community-team': 'community-team-leaders'
+            };
+            
+            // Check each label and assign the appropriate team
+            for (const [label, team] of Object.entries(teamAssignments)) {
+              if (labels.includes(label)) {
+                try {
+                  await github.rest.issues.addAssignees({
+                    owner: context.repo.owner,
+                    repo: context.repo.repo,
+                    issue_number: issue.number,
+                    assignees: [`@mautic/${team}`]
+                  });
+                  console.log(`Assigned issue #${issue.number} to team @mautic/${team}`);
+                } catch (error) {
+                  console.error(`Error assigning team @mautic/${team}: ${error}`);
+                }
+              }
+            }
