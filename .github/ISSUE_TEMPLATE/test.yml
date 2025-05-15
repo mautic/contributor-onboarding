@@ -1,14 +1,21 @@
-name: Test Template
-description: Test template to diagnose issues
-title: "[TEST] "
-labels: ["test"]
+name: Community Team Onboarding
+description: Request to join the Mautic Community Team
+title: "[Community] Onboarding request for: "
+labels: ["onboarding", "community-team"]
+
 body:
   - type: markdown
     attributes:
-      value: This is a test template.
+      value: |
+        # Community Team Onboarding
+        
+        Thank you for your interest in joining the Mautic Community Team! This form will help us understand your interests and guide you through the onboarding process.
+        
   - type: input
-    id: test_field
+    id: name
     attributes:
-      label: Test Input
+      label: Full Name
+      description: Your full name as you'd like it to appear in community materials
+      placeholder: Aisha Chowdhury
     validations:
       required: true
