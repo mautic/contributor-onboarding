@@ -1,7 +1,7 @@
 name: Product Team - Tester
 description: Join the Product Team as a PR/release tester
 title: "[Product-Tester] Onboarding request for: (add your name here)"
-labels: ["onboarding", "product-team", "role-tester"]
+labels: ["onboarding", "product-team", "tester"]
 
 body:
   - type: markdown
