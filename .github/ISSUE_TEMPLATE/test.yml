@@ -34,6 +34,6 @@ body:
     attributes:
       label: Slack Username
       description: Your username on the Mautic Slack workspace (if you have one - if not please register at https://mautic.org/slack)
-      placeholder: @aishachowdhury
+      placeholder: aishachowdhury
     validations:
       required: false
