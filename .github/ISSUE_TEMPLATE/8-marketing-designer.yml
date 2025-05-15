@@ -100,8 +100,6 @@ body:
         - label: Pattern library/Design system
         - label: User Experience Tiger Team
         - label: Strategic Initiatives - designing for new features
-      validations:
-        required: true
       
   - type: dropdown
     id: time_commitment
