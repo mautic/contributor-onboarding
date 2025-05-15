@@ -1,0 +1,14 @@
+name: Test Template
+description: Test template to diagnose issues
+title: "[TEST] "
+labels: ["test"]
+body:
+  - type: markdown
+    attributes:
+      value: This is a test template.
+  - type: input
+    id: test_field
+    attributes:
+      label: Test Input
+    validations:
+      required: true
