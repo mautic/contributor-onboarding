@@ -3,34 +3,27 @@ name: Team Leader Round-Robin Assignment
 on:
   issues:
     types: [opened, labeled]
+
 permissions:
-  contents: write 
-  issues: write # We need write access to update the state file, so we can do round-robin assignment of issues.
+  issues: write
+  actions: write  # This permission is needed to manage variables
 
 jobs:
   assign-team-leader:
     runs-on: ubuntu-latest
-     # Only run if one of our team labels is involved
     if: |
       contains(github.event.issue.labels.*.name, 'community-team') || 
       contains(github.event.issue.labels.*.name, 'education-team') || 
       contains(github.event.issue.labels.*.name, 'marketing-team') || 
       contains(github.event.issue.labels.*.name, 'product-team')
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v2
-        
-      - name: Assign team leader based on issue label
-        id: assign
+      - name: Assign team leader
         uses: actions/github-script@v6
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
             const issue = context.payload.issue;
             if (!issue) return;
-            
-            const fs = require('fs');
-            const path = '.github/team-assignment-state.json';
             
             // Define team leaders
             const teamLeaders = {
@@ -40,73 +33,71 @@ jobs:
               'product-team': ['Jos0405', 'shinde-rahul']
             };
             
-            // Default state
-            let state = {
-              lastAssigned: {
-                'community-team': 0,
-                'education-team': 0,
-                'marketing-team': 0,
-                'product-team': 0
+            // Get all label names
+            const labelNames = issue.labels.map(label => label.name.toLowerCase());
+            
+            // Find first matching team
+            const matchingTeam = Object.keys(teamLeaders).find(team => labelNames.includes(team));
+            
+            if (matchingTeam) {
+              const leaders = teamLeaders[matchingTeam];
+              const varName = `LAST_ASSIGNED_${matchingTeam.replace(/-/g, '_').toUpperCase()}`;
+              
+              // Get the current index from a variable
+              let currentIndex = 0;
+              let variableExists = false;
+              
+              try {
+                const { data } = await github.rest.actions.getRepoVariable({
+                  owner: context.repo.owner,
+                  repo: context.repo.repo,
+                  name: varName
+                });
+                currentIndex = parseInt(data.value) || 0;
+                variableExists = true;
+                console.log(`Found existing variable ${varName} with value ${currentIndex}`);
+              } catch (error) {
+                console.log(`Variable ${varName} not found, will create it`);
               }
-            };
-            
-            // Try to load existing state
-            try {
-              if (fs.existsSync(path)) {
-                const data = fs.readFileSync(path, 'utf8');
-                state = JSON.parse(data);
-              }
-            } catch (error) {
-              console.log('No existing state file or error reading it, using default state');
-            }
-            
-            // Get all labels in lowercase
-            const labels = issue.labels.map(label => label.name.toLowerCase());
-            let assignee = null;
-            
-            // Check each team label and assign the appropriate leader
-            for (const [team, leaders] of Object.entries(teamLeaders)) {
-              if (labels.includes(team)) {
-                // Get the next leader index
-                const currentIndex = state.lastAssigned[team];
-                const nextIndex = (currentIndex + 1) % leaders.length;
+              
+              // Calculate next index
+              const nextIndex = (currentIndex + 1) % leaders.length;
+              
+              // Assign the leader
+              const assignee = leaders[nextIndex];
+              
+              try {
+                await github.rest.issues.addAssignees({
+                  owner: context.repo.owner,
+                  repo: context.repo.repo,
+                  issue_number: issue.number,
+                  assignees: [assignee]
+                });
+                console.log(`Assigned issue #${issue.number} to ${assignee} for team ${matchingTeam}`);
                 
-                // Update state
-                state.lastAssigned[team] = nextIndex;
-                
-                // Assign the leader
-                assignee = leaders[nextIndex];
-                
+                // Update or create the variable for next time
                 try {
-                  await github.rest.issues.addAssignees({
-                    owner: context.repo.owner,
-                    repo: context.repo.repo,
-                    issue_number: issue.number,
-                    assignees: [assignee]
-                  });
-                  console.log(`Assigned issue #${issue.number} to ${assignee}`);
-                } catch (error) {
-                  console.error(`Error assigning issue to ${assignee}: ${error.message}`);
+                  if (variableExists) {
+                    await github.rest.actions.updateRepoVariable({
+                      owner: context.repo.owner,
+                      repo: context.repo.repo,
+                      name: varName,
+                      value: nextIndex.toString()
+                    });
+                    console.log(`Updated variable ${varName} to ${nextIndex}`);
+                  } else {
+                    await github.rest.actions.createRepoVariable({
+                      owner: context.repo.owner,
+                      repo: context.repo.repo,
+                      name: varName,
+                      value: nextIndex.toString()
+                    });
+                    console.log(`Created variable ${varName} with value ${nextIndex}`);
+                  }
+                } catch (updateError) {
+                  console.error(`Error managing variable: ${updateError.message}`);
                 }
-                
-                break; // Only assign one leader per issue
+              } catch (error) {
+                console.error(`Error assigning issue to ${assignee}: ${error.message}`);
               }
             }
-            
-            // Save the updated state
-            try {
-              fs.writeFileSync(path, JSON.stringify(state, null, 2));
-            } catch (error) {
-              console.error(`Error writing state file: ${error.message}`);
-            }
-            
-            return { assignee };
-            
-      - name: Commit state file
-        if: steps.assign.outputs.assignee != ''
-        run: |
-          git config --global user.name 'GitHub Action'
-          git config --global user.email 'action@github.com'
-          git add .github/team-assignment-state.json
-          git commit -m "Update team assignment state [skip ci]" || echo "No changes to commit"
-          git push
