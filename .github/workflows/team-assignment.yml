@@ -6,9 +6,6 @@ on:
 
 permissions:
   issues: write
-  actions: write
-  contents: read
-  id-token: write  # Sometimes needed for auth
 
 jobs:
   assign-team-leader:
@@ -19,62 +16,29 @@ jobs:
       contains(github.event.issue.labels.*.name, 'marketing-team') || 
       contains(github.event.issue.labels.*.name, 'product-team')
     steps:
-      - name: Manually create variables if needed
-        uses: actions/github-script@v6
-        id: create-vars
-        with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-          script: |
-            // This step just creates variables once if they don't exist
-            try {
-              await github.request('POST /repos/{owner}/{repo}/actions/variables', {
-                owner: context.repo.owner,
-                repo: context.repo.repo,
-                name: 'LAST_ASSIGNED_COMMUNITY_TEAM',
-                value: '0'
-              });
-              console.log('Created LAST_ASSIGNED_COMMUNITY_TEAM');
-            } catch (error) {
-              console.log('LAST_ASSIGNED_COMMUNITY_TEAM variable may already exist');
-            }
-            
-            try {
-              await github.request('POST /repos/{owner}/{repo}/actions/variables', {
-                owner: context.repo.owner,
-                repo: context.repo.repo,
-                name: 'LAST_ASSIGNED_EDUCATION_TEAM',
-                value: '0'
-              });
-              console.log('Created LAST_ASSIGNED_EDUCATION_TEAM');
-            } catch (error) {
-              console.log('LAST_ASSIGNED_EDUCATION_TEAM variable may already exist');
-            }
-            
-            try {
-              await github.request('POST /repos/{owner}/{repo}/actions/variables', {
-                owner: context.repo.owner,
-                repo: context.repo.repo,
-                name: 'LAST_ASSIGNED_MARKETING_TEAM',
-                value: '0'
-              });
-              console.log('Created LAST_ASSIGNED_MARKETING_TEAM');
-            } catch (error) {
-              console.log('LAST_ASSIGNED_MARKETING_TEAM variable may already exist');
-            }
-            
-            try {
-              await github.request('POST /repos/{owner}/{repo}/actions/variables', {
-                owner: context.repo.owner,
-                repo: context.repo.repo,
-                name: 'LAST_ASSIGNED_PRODUCT_TEAM',
-                value: '0'
-              });
-              console.log('Created LAST_ASSIGNED_PRODUCT_TEAM');
-            } catch (error) {
-              console.log('LAST_ASSIGNED_PRODUCT_TEAM variable may already exist');
-            }
+      - name: Check for variable existence
+        id: check-vars
+        run: |
+          # Check if variables exist using GitHub CLI
+          if gh variable list -R ${{ github.repository }} | grep -q "LAST_ASSIGNED_COMMUNITY_TEAM"; then
+            echo "vars_exist=true" >> $GITHUB_OUTPUT
+          else
+            echo "vars_exist=false" >> $GITHUB_OUTPUT
+          fi
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           
-      - name: Assign team leader using variables
+      - name: Create variables if needed
+        if: steps.check-vars.outputs.vars_exist == 'false'
+        run: |
+          gh variable set LAST_ASSIGNED_COMMUNITY_TEAM -R ${{ github.repository }} -b "0"
+          gh variable set LAST_ASSIGNED_EDUCATION_TEAM -R ${{ github.repository }} -b "0"
+          gh variable set LAST_ASSIGNED_MARKETING_TEAM -R ${{ github.repository }} -b "0" 
+          gh variable set LAST_ASSIGNED_PRODUCT_TEAM -R ${{ github.repository }} -b "0"
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          
+      - name: Assign team leader
         uses: actions/github-script@v6
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
@@ -100,19 +64,21 @@ jobs:
               const leaders = teamLeaders[matchingTeam];
               const varName = `LAST_ASSIGNED_${matchingTeam.replace(/-/g, '_').toUpperCase()}`;
               
-              // Get current variable value
+              // Get current index using GitHub CLI
+              const { execSync } = require('child_process');
               let currentIndex = 0;
               try {
-                const response = await github.request('GET /repos/{owner}/{repo}/actions/variables/{name}', {
-                  owner: context.repo.owner,
-                  repo: context.repo.repo,
-                  name: varName
+                const output = execSync(`gh variable get ${varName} -R ${process.env.GITHUB_REPOSITORY}`, { 
+                  encoding: 'utf8',
+                  env: {
+                    ...process.env,
+                    GITHUB_TOKEN: process.env.GITHUB_TOKEN
+                  }
                 });
-                currentIndex = parseInt(response.data.value) || 0;
+                currentIndex = parseInt(output.trim()) || 0;
                 console.log(`Current index for ${varName}: ${currentIndex}`);
               } catch (error) {
-                console.log(`Could not get variable ${varName}: ${error.message}`);
-                currentIndex = 0;
+                console.log(`Could not get variable ${varName}, using default`);
               }
               
               // Calculate next index
@@ -130,19 +96,16 @@ jobs:
                 });
                 console.log(`Assigned issue #${issue.number} to ${assignee} for team ${matchingTeam}`);
                 
-                // Update the variable with new value
-                try {
-                  await github.request('PATCH /repos/{owner}/{repo}/actions/variables/{name}', {
-                    owner: context.repo.owner,
-                    repo: context.repo.repo,
-                    name: varName,
-                    value: nextIndex.toString()
-                  });
-                  console.log(`Updated ${varName} to ${nextIndex}`);
-                } catch (updateError) {
-                  console.error(`Error updating variable: ${updateError.message}`);
-                }
+                // Update using GitHub CLI
+                execSync(`gh variable set ${varName} -R ${process.env.GITHUB_REPOSITORY} -b "${nextIndex}"`, {
+                  encoding: 'utf8',
+                  env: {
+                    ...process.env,
+                    GITHUB_TOKEN: process.env.GITHUB_TOKEN
+                  }
+                });
+                console.log(`Updated ${varName} to ${nextIndex}`);
               } catch (error) {
-                console.error(`Error assigning issue: ${error.message}`);
+                console.error(`Error in assignment: ${error.message}`);
               }
             }
