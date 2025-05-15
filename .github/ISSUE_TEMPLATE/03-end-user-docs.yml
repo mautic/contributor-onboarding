@@ -38,6 +38,15 @@ body:
     validations:
       required: false
       
+  - type: input
+    id: github
+    attributes:
+      label: GitHub Username
+      description: Your GitHub username for repository access
+      placeholder: zhangwei-dev
+    validations:
+      required: true
+      
   - type: dropdown
     id: mautic_experience
     attributes:
