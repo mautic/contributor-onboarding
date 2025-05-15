@@ -1,0 +1,147 @@
+name: Council Member Onboarding
+description: Request onboarding as a newly elected Council member
+title: "[Council] Onboarding request for: (insert your name here)"
+labels: ["onboarding", "council-member"]
+
+body:
+  - type: markdown
+    attributes:
+      value: |
+        # Council Member Onboarding Request
+        
+        Congratulations on being elected to the Mautic Council! Please complete this form to begin your onboarding process. The Community Team will use this information to set up your accounts and access.
+        
+  - type: input
+    id: council_member
+    attributes:
+      label: Your Full Name
+      description: Your full name as you'd like it to appear in official communications
+      placeholder: Mateo Rodriguez
+    validations:
+      required: true
+      
+  - type: input
+    id: email
+    attributes:
+      label: Email Address
+      description: Your preferred email address for receiving your @mautic.org account details
+      placeholder: mateo[@]example[.]com
+    validations:
+      required: true
+      
+  - type: input
+    id: portal_username
+    attributes:
+      label: Portal Username
+      description: Your username on the Mautic Community Portal (if you have one - this will be the same as the forums account you sign in with)
+      placeholder: mateorodriguez
+    validations:
+      required: false
+      
+  - type: input
+    id: slack_username
+    attributes:
+      label: Slack Username
+      description: Your username on the Mautic Slack workspace
+      placeholder: mateorodriguez
+    validations:
+      required: true
+      
+  - type: markdown
+    attributes:
+      value: |
+        ## Onboarding Process Information
+        
+        Below is an overview of the onboarding steps that will be completed by the team. This is for your information only - no action is needed from you on these items yet.
+        
+  - type: markdown
+    attributes:
+      value: |
+        ### Welcome Process
+        
+        - You will be added to the Council Slack channel
+        - A blog post will be written announcing your election
+        - Your bio and photo will be added to the Council page on the Mautic website
+        - The announcement will be shared on social media, Slack, and forums
+        
+        ### Google Workspace Setup
+        
+        - A Google @mautic.org account will be created for you
+        - You'll receive credentials and backup 2FA codes
+        - You'll need to set up 2FA with Authy or a similar tool
+        - You'll be added to the council@ email group
+        
+        ### Policies Review
+        
+        You'll be asked to review and agree to exemplify the following policies:
+        - [Policy for use of community resources](https://contribute.mautic.org/policies/use-of-community-tools-and-resources)
+        - [Code of Conduct](https://contribute.mautic.org/policies/code-of-conduct)
+        - You'll need to add your information to the [Register of Interests](https://docs.google.com/spreadsheets/d/1g6yw87Qnnnm5pLc5YroruSU8vGuKjeY9FvchcUJ95_0/edit?usp=sharing) which helps us ensure transparency and accountability in our decision-making processes. This is a public document, so please only include information you are comfortable sharing with the community.
+        
+        ### Portal Access
+        
+        - You'll be added to the Council assembly with your term dates
+        - You'll be added to the Council group on the portal, allowing you to endorse on behalf of the Council
+        - You'll receive an invitation notification to accept
+        
+        ### Meeting Participation
+        
+        - You'll be added to the rotation for meeting chair and note-taking duties, see the pinned post on the Council Slack channel for more information
+        - You'll be added to the Council calendar
+        - You'll receive an invitation to the next Council meeting
+        - You'll receive the Council meeting schedule
+        
+  - type: textarea
+    id: additional_info
+    attributes:
+      label: Additional Information
+      description: Is there anything else the onboarding team should know? Any special requirements or questions?
+      placeholder: Special accommodations, questions about the process, etc.
+    validations:
+      required: false
+      
+  - type: textarea
+    id: bio
+    attributes:
+      label: Brief Bio
+      description: Please provide a short bio (2-3 sentences) that can be used in the announcement blog post
+      placeholder: I'm a marketing automation specialist with 5 years of experience using Mautic. I'm passionate about open source and community building...
+    validations:
+      required: true
+      
+  - type: input
+    id: profile_photo
+    attributes:
+      label: Profile Photo
+      description: Please provide a link to a high-resolution photo of yourself for the announcement (LinkedIn, GitHub, etc.)
+      placeholder: https://example.com/profile-photo.jpg
+    validations:
+      required: false
+      
+  - type: checkboxes
+    id: agreements
+    attributes:
+      label: Council Member Agreements
+      description: Please confirm the following
+      options:
+        - label: I understand I will need to review and follow the Mautic policies and Code of Conduct
+          required: true
+        - label: I agree to declare any relevant interests in the Register of Interests
+          required: true
+        - label: I commit to participating actively in Council meetings and activities
+          required: true
+        - label: I understand I will be held to a high standard as a community leader
+          required: true
+          
+  - type: markdown
+    attributes:
+      value: |
+        ## Next Steps
+        
+        After submitting this form:
+        1. A Community Team member will begin your onboarding process
+        2. You'll receive your Google account details via email
+        3. You'll be added to the Council Slack channel
+        4. You'll be guided through the remaining onboarding steps
+        
+        Thank you for your service to the Mautic community!
