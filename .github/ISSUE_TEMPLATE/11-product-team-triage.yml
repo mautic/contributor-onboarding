@@ -1,0 +1,188 @@
+name: Triage Team Onboarding
+description: Apply to join the Mautic Triage Team to help review and organize GitHub issues and PRs
+title: "[Triage] Team application for: (enter your name here)"
+labels: ["onboarding", "triage-team", "product-team"]
+
+body:
+  - type: markdown
+    attributes:
+      value: |
+        # Mautic Triage Team Onboarding
+        
+        Thank you for your interest in joining the Mautic Triage Team! This team plays a crucial role in maintaining the health and efficiency of our development process by reviewing incoming issues and pull requests, ensuring they are appropriately labeled and organized.
+        
+        Please fill out this form to help us understand your experience and how you can contribute to the team.
+        
+  - type: input
+    id: name
+    attributes:
+      label: Full Name
+      description: Your full name as you'd like it to appear in community materials
+      placeholder: Hiroshi Tanaka
+    validations:
+      required: true
+      
+  - type: input
+    id: email
+    attributes:
+      label: Email Address
+      description: Your preferred email for communications, please write in the format hiroshi[@]example[.]com
+      placeholder: hiroshi[@]example[.]com
+    validations:
+      required: true
+      
+  - type: input
+    id: github_username
+    attributes:
+      label: GitHub Username
+      description: Your GitHub username (essential for triage team access)
+      placeholder: hiroshi-dev
+    validations:
+      required: true
+      
+  - type: input
+    id: slack
+    attributes:
+      label: Slack Username
+      description: Your username on the Mautic Slack workspace (if you haven't joined yet, please register at https://mautic.org/slack)
+      placeholder: hiroshitanaka
+    validations:
+      required: false
+      
+  - type: dropdown
+    id: github_experience
+    attributes:
+      label: GitHub Experience
+      description: How would you rate your experience with GitHub and issue tracking?
+      options:
+        - Beginner (Basic understanding of issues and PRs)
+        - Intermediate (Comfortable with most GitHub features)
+        - Advanced (Extensive experience with GitHub workflows)
+        - Expert (Deep knowledge of GitHub, CI/CD, project management)
+    validations:
+      required: true
+      
+  - type: dropdown
+    id: mautic_experience
+    attributes:
+      label: Mautic Experience
+      description: How familiar are you with Mautic?
+      options:
+        - New user (Less than 6 months)
+        - Regular user (6 months to 1 year)
+        - Experienced user (1+ years)
+        - Advanced user (2+ years)
+        - Contributor (Have submitted PRs/issues)
+    validations:
+      required: true
+      
+  - type: dropdown
+    id: time_commitment
+    attributes:
+      label: Time Availability
+      description: How much time can you commit to triage activities weekly?
+      options:
+        - 1-2 hours per week
+        - 3-5 hours per week
+        - 5+ hours per week
+        - Variable/Unsure
+    validations:
+      required: true
+      
+  - type: checkboxes
+    id: technical_skills
+    attributes:
+      label: Technical Knowledge
+      description: Which of these technologies are you familiar with? (Select all that apply)
+      options:
+        - label: PHP
+        - label: Symfony
+        - label: JavaScript
+        - label: MySQL/Databases
+        - label: REST APIs
+        - label: Git/Version Control
+        - label: Automated Testing
+        - label: Continuous Integration
+          
+  - type: dropdown
+    id: languages
+    attributes:
+      label: Languages Spoken
+      description: Which languages are you comfortable communicating in? This helps with international issues and PRs.
+      multiple: true
+      options:
+        - English
+        - Portuguese
+        - Hindi
+        - Spanish
+        - French
+        - German
+        - Japanese
+        - Chinese
+        - Other (please specify in "Additional Information")
+    validations:
+      required: true
+      
+  - type: textarea
+    id: triage_experience
+    attributes:
+      label: Relevant Experience
+      description: Please share any experience you have with issue triage, open source contributions, or community support
+      placeholder: I've helped triage issues for X project, or I have experience reviewing PRs in Y community...
+    validations:
+      required: true
+      
+  - type: textarea
+    id: communication_style
+    attributes:
+      label: Communication Approach
+      description: The triage team needs patient, compassionate communicators. Please describe your approach to communicating with new contributors who may be unfamiliar with our processes.
+      placeholder: My approach to helping new contributors is...
+    validations:
+      required: true
+      
+  - type: textarea
+    id: motivation
+    attributes:
+      label: Motivation
+      description: Why are you interested in joining the Triage Team?
+      placeholder: I'm interested in this role because...
+    validations:
+      required: true
+      
+  - type: textarea
+    id: additional
+    attributes:
+      label: Additional Information
+      description: Anything else you'd like us to know?
+      placeholder: Other skills, availability patterns, time zone, etc.
+    validations:
+      required: false
+      
+  - type: checkboxes
+    id: agreements
+    attributes:
+      label: Agreements
+      description: Please confirm the following
+      options:
+        - label: I have read and agree to the [Mautic Code of Conduct](https://www.mautic.org/code-of-conduct)
+          required: true
+        - label: I understand this is a volunteer position
+          required: true
+        - label: I commit to providing friendly, constructive feedback to contributors
+          required: true
+        - label: I am willing to learn and follow Mautic's triage processes and guidelines
+          required: true
+          
+  - type: markdown
+    attributes:
+      value: |
+        ## Next Steps
+        
+        After submitting this form:
+        1. A member of the Product Team will review your application
+        2. You'll be invited to an onboarding session to learn our triage processes
+        3. You'll get access to triage tools and relevant GitHub teams
+        4. You'll be paired with an experienced team member for initial guidance
+        
+        Please join the #wg-triage-team and #t-product channels in Slack if you haven't already done so!
