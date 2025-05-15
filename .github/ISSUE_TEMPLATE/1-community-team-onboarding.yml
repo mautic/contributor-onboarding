@@ -1,0 +1,153 @@
+name: Community Team Onboarding
+description: Request to join the Mautic Community Team
+title: "[Community] Onboarding request for: "
+labels: ["onboarding", "team-community"]
+assignees:
+  - YOUR_GITHUB_USERNAME
+
+body:
+  - type: markdown
+    attributes:
+      value: |
+        # Community Team Onboarding
+        
+        Thank you for your interest in joining the Mautic Community Team! This form will help us understand your interests and guide you through the onboarding process.
+        
+  - type: input
+    id: name
+    attributes:
+      label: Full Name
+      description: Your full name as you'd like it to appear in community materials
+      placeholder: Aisha Chowdhury
+    validations:
+      required: true
+      
+  - type: input
+    id: email
+    attributes:
+      label: Email Address
+      description: Your preferred email for community communications, please write in the format aisha[@]example[.]com
+      placeholder: aisha[@]example[.]com
+    validations:
+      required: true
+      
+  - type: input
+    id: slack
+    attributes:
+      label: Slack Username
+      description: Your username on the Mautic Slack workspace (if you have one - if not please register at https://mautic.org/slack)
+      placeholder: @janesmith
+    validations:
+      required: false
+      
+  - type: dropdown
+    id: region
+    attributes:
+      label: Geographic Region
+      description: Which region are you based in?
+      options:
+        - North America
+        - South America (including Brazil)
+        - Europe
+        - Middle East & Africa
+        - India & South Asia
+        - East Asia & Pacific
+    validations:
+      required: true
+      
+  - type: dropdown
+    id: languages
+    attributes:
+      label: Languages Spoken
+      description: Select the languages you're comfortable communicating in
+      multiple: true
+      options:
+        - English
+        - Portuguese
+        - Hindi
+        - Spanish
+        - French
+        - German
+        - Other (please specify in "Additional Information")
+    validations:
+      required: true
+      
+  - type: dropdown
+    id: time_commitment
+    attributes:
+      label: Time Availability
+      description: How much time can you commit to the Community Team?
+      options:
+        - 1-2 hours per week
+        - 3-5 hours per week
+        - 5+ hours per week
+        - Variable/Unsure
+    validations:
+      required: true
+      
+  - type: dropdown
+    id: focus_areas
+    attributes:
+      label: Areas of Interest
+      description: Which community initiatives are you most interested in?
+      multiple: true
+      options:
+        - Ambassador Program
+        - Local Meetups & Events
+        - Onboarding New Contributors
+        - Regional Community Building
+        - Diversity & Inclusion Initiatives
+        - Community Documentation
+    validations:
+      required: true
+      
+  - type: textarea
+    id: experience
+    attributes:
+      label: Relevant Experience
+      description: Please share any experience you have with community building, open source projects, or Mautic
+      placeholder: I've been using Mautic for X years and have experience with...
+    validations:
+      required: true
+      
+  - type: textarea
+    id: motivation
+    attributes:
+      label: Motivation
+      description: Why are you interested in joining the Community Team?
+      placeholder: I'm passionate about...
+    validations:
+      required: true
+      
+  - type: textarea
+    id: additional
+    attributes:
+      label: Additional Information
+      description: Anything else you'd like us to know?
+      placeholder: Other skills, availability constraints, etc.
+    validations:
+      required: false
+      
+  - type: checkboxes
+    id: agreements
+    attributes:
+      label: Agreements
+      description: Please confirm the following
+      options:
+        - label: I have read and agree to the [Mautic Code of Conduct](https://www.mautic.org/code-of-conduct)
+          required: true
+        - label: I understand this is a volunteer position
+          required: true
+        - label: I am willing to participate in regular fortnightly community team meetings
+          required: true
+          
+  - type: markdown
+    attributes:
+      value: |
+        ## Next Steps
+        
+        After submitting this form:
+        1. A community team member will review your application
+        2. You'll be invited to an onboarding call
+        3. You'll receive access to necessary resources
+        4. You'll be paired with an onboarding buddy to help you get started
