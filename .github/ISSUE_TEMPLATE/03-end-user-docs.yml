@@ -1,0 +1,164 @@
+name: Education Team - End-User Documentation
+description: Apply to contribute to Mautic's end-user documentation
+title: "[Documentation] End-user documentation contributor: (insert your name here)"
+labels: ["onboarding", "education-team", "user-docs"]
+
+body:
+  - type: markdown
+    attributes:
+      value: |
+        # End-User Documentation Contributor Onboarding
+        
+        Thank you for your interest in contributing to Mautic's end-user documentation! This documentation helps users understand how to effectively use Mautic and requires clear, comprehensive explanations.
+        
+  - type: input
+    id: name
+    attributes:
+      label: Full Name
+      description: Your full name as you'd like it to appear as an author
+      placeholder: Priya Patel
+    validations:
+      required: true
+      
+  - type: input
+    id: email
+    attributes:
+      label: Email Address
+      description: Your preferred email for communications, please write in the format priya[@]example[.]com
+      placeholder: priya[@]example[.]com
+    validations:
+      required: true
+      
+  - type: input
+    id: slack
+    attributes:
+      label: Slack Username
+      description: Your username on the Mautic Slack workspace (if you haven't joined yet, please register at https://mautic.org/slack)
+      placeholder: priyapatel
+    validations:
+      required: false
+      
+  - type: dropdown
+    id: mautic_experience
+    attributes:
+      label: Mautic Experience
+      description: How would you rate your experience with Mautic?
+      options:
+        - Beginner (less than 6 months)
+        - Intermediate (6 months to 1 year)
+        - Advanced (1-2 years)
+        - Expert (2+ years)
+    validations:
+      required: true
+      
+  - type: dropdown
+    id: technical_writing
+    attributes:
+      label: Technical Writing Experience
+      description: How would you rate your technical writing experience?
+      options:
+        - Beginner (new to technical writing)
+        - Intermediate (some documentation experience)
+        - Advanced (regular documentation contributor)
+        - Expert (professional technical writer)
+    validations:
+      required: true
+      
+  - type: dropdown
+    id: english_proficiency
+    attributes:
+      label: English Proficiency
+      description: What is your level of proficiency in US English?
+      options:
+        - Native speaker
+        - Fluent/Bilingual
+        - Advanced
+        - Intermediate
+    validations:
+      required: true
+      
+  - type: checkboxes
+    id: doc_interests
+    attributes:
+      label: Documentation Interests
+      description: Which areas of Mautic documentation are you interested in contributing to? (Select all that apply)
+      options:
+        - label: Installation and setup
+        - label: Contacts management
+        - label: Channels (email, SMS, etc.)
+        - label: Campaigns
+        - label: Segments
+        - label: Reports and analytics
+        - label: Integrations
+        - label: Administration
+        - label: Troubleshooting
+          
+  - type: dropdown
+    id: time_commitment
+    attributes:
+      label: Time Availability
+      description: How much time can you commit to documentation contributions?
+      options:
+        - Occasional (a few hours per month)
+        - Regular (2-4 hours per week)
+        - Dedicated (5+ hours per week)
+        - Project-based (varies with projects)
+    validations:
+      required: true
+      
+  - type: textarea
+    id: writing_samples
+    attributes:
+      label: Writing Samples
+      description: Please share links to any technical writing samples or documentation you've created, in particular related to Mautic or similar software and/or using RST.
+      placeholder: https://example.com/my-documentation (include brief descriptions if needed)
+    validations:
+      required: false
+      
+  - type: textarea
+    id: experience
+    attributes:
+      label: Relevant Experience
+      description: Please share any experience you have with technical writing, documentation systems, or Mautic
+      placeholder: I've documented internal processes at my organization, contributed to open source documentation, etc.
+    validations:
+      required: true
+      
+  - type: textarea
+    id: motivation
+    attributes:
+      label: Motivation
+      description: Why are you interested in contributing to Mautic's end-user documentation?
+      placeholder: I'm passionate about making complex systems accessible through clear documentation...
+    validations:
+      required: true
+      
+  - type: checkboxes
+    id: agreements
+    attributes:
+      label: Documentation Agreements
+      description: Please confirm the following
+      options:
+        - label: I have read and agree to the [Mautic Code of Conduct](https://www.mautic.org/code-of-conduct)
+          required: true
+        - label: I understand end-user documentation requires a formal style with comprehensive explanations
+          required: true
+        - label: I commit to following Mautic's documentation style guide and accessibility requirements
+          required: true
+        - label: I will ensure my contributions use proper headings structure, descriptive link text, and image alt text
+          required: true
+        - label: I understand this is a volunteer position
+          required: true
+          
+  - type: markdown
+    attributes:
+      value: |
+        ## Next Steps
+        
+        After submitting this form:
+        1. A member of the Education Team will review your application
+        2. You'll be invited to an orientation on our documentation platform and style requirements
+        3. You'll receive access to our documentation repository
+        4. You'll be guided in selecting your first documentation task
+        
+        Please join the #t-education channel in Slack if you haven't already done so!
