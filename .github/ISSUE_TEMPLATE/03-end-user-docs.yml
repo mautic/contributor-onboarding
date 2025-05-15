@@ -37,13 +37,13 @@ body:
       placeholder: priyapatel
     validations:
       required: false
-      
+
   - type: input
     id: github
     attributes:
       label: GitHub Username
       description: Your GitHub username for repository access
-      placeholder: zhangwei-dev
+      placeholder: priyapatel
     validations:
       required: true
       
