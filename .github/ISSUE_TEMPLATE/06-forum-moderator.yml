@@ -1,0 +1,230 @@
+name: Education Team - Forum Moderator
+description: Apply to become a moderator for the Mautic community forums
+title: "[Forums] Moderator application for: (insert your name here)"
+labels: ["onboarding", "education-team", "forums"]
+
+body:
+  - type: markdown
+    attributes:
+      value: |
+        # Forum Moderator Application
+        
+        Thank you for your interest in becoming a moderator for the Mautic community forums! Moderators play a vital role in creating a welcoming, respectful environment where community members can get help and share knowledge.
+        
+        New moderators typically start by moderating a specific category before potentially expanding to broader responsibilities.
+        
+  - type: input
+    id: name
+    attributes:
+      label: Full Name
+      description: Your full name as you'd like it to appear in the forums
+      placeholder: Fatima Al-Zahra
+    validations:
+      required: true
+      
+  - type: input
+    id: email
+    attributes:
+      label: Email Address
+      description: Your preferred email for communications, please write in the format fatima[@]example[.]com. If the address you use to sign into the forums is different, please let us know in the additional comments section using the same format.
+      placeholder: fatima[@]example[.]com
+    validations:
+      required: true
+      
+  - type: input
+    id: slack
+    attributes:
+      label: Slack Username
+      description: Your username on the Mautic Slack workspace (if you haven't joined yet, please register at https://mautic.org/slack)
+      placeholder: fatimaalzahra
+    validations:
+      required: false
+      
+  - type: input
+    id: forum_username
+    attributes:
+      label: Forum Username
+      description: Your username on the Mautic Forums
+      placeholder: fatima_alzahra
+    validations:
+      required: true
+      
+  - type: dropdown
+    id: forum_experience
+    attributes:
+      label: Forum Experience
+      description: How long have you been active in the Mautic forums?
+      options:
+        - Less than 3 months
+        - 3-6 months
+        - 6-12 months
+        - 1-2 years
+        - More than 2 years
+    validations:
+      required: true
+      
+  - type: dropdown
+    id: forum_participation
+    attributes:
+      label: Forum Participation
+      description: How would you describe your current participation in the forums?
+      options:
+        - Regular contributor (post frequently)
+        - Active reader and occasional poster
+        - Primarily help answer questions
+        - Primarily ask questions
+        - Observer (read but rarely post)
+    validations:
+      required: true
+      
+  - type: checkboxes
+    id: languages
+    attributes:
+      label: Language Proficiency
+      description: In which languages are you fluent enough to moderate forum discussions? (Select all that apply)
+      options:
+        - label: English
+        - label: Portuguese
+        - label: Spanish
+        - label: French
+        - label: German
+        - label: Italian
+        - label: Dutch
+        - label: Hindi
+        - label: Arabic
+        - label: Russian
+        - label: Japanese
+        - label: Chinese
+        - label: Other (please specify in additional information)
+          
+  - type: checkboxes
+    id: category_interests
+    attributes:
+      label: Category Interests
+      description: Which forum categories would you be interested in moderating? (Select all that apply)
+      options:
+        - label: General Questions
+        - label: Installation & Upgrades
+        - label: Docker support
+        - label: Marketing support
+        - label: Development & API
+        - label: Documentation
+        - label: Design
+        - label: Translations
+        - label: Locales
+        - label: Community
+        - label: International - Language-specific (specify in additional information)
+        - label: International - Country-specific (specify in additional information)
+        - label: Meetups
+          
+  - type: dropdown
+    id: time_commitment
+    attributes:
+      label: Time Availability
+      description: How much time can you commit to forum moderation weekly?
+      options:
+        - 1-2 hours per week
+        - 3-5 hours per week
+        - 5-10 hours per week
+        - 10+ hours per week
+        - Variable (please explain in additional information)
+    validations:
+      required: true
+      
+  - type: dropdown
+    id: timezone
+    attributes:
+      label: Primary Timezone
+      description: What is your primary timezone? This helps us ensure coverage across different times.
+      options:
+        - Pacific (UTC-8 to UTC-7)
+        - Mountain (UTC-7 to UTC-6)
+        - Central (UTC-6 to UTC-5)
+        - Eastern (UTC-5 to UTC-4)
+        - Atlantic (UTC-4 to UTC-3)
+        - European (UTC-1 to UTC+3)
+        - African (UTC+0 to UTC+4)
+        - Asian (UTC+3 to UTC+9)
+        - Australian/Pacific (UTC+8 to UTC+12)
+    validations:
+      required: true
+      
+  - type: textarea
+    id: moderation_experience
+    attributes:
+      label: Moderation Experience
+      description: Do you have any previous experience moderating online communities? If so, please describe.
+      placeholder: I moderated the XYZ forum for 2 years, handling approximately 20 posts per day and resolving conflicts between members...
+    validations:
+      required: false
+      
+  - type: textarea
+    id: conflict_scenario
+    attributes:
+      label: Conflict Resolution Approach
+      description: Please describe how you would handle a situation where two community members are having a heated disagreement in a forum thread.  Feel free to provide links to any relevant forum posts or threads where you've successfully resolved a conflict.
+      placeholder: First, I would...
+    validations:
+      required: true
+      
+  - type: textarea
+    id: coc_understanding
+    attributes:
+      label: Code of Conduct Understanding
+      description: Please explain why the Code of Conduct is important and how you would enforce it as a moderator.
+      placeholder: The Code of Conduct is essential because...
+    validations:
+      required: true
+      
+  - type: textarea
+    id: motivation
+    attributes:
+      label: Motivation
+      description: Why are you interested in becoming a forum moderator?
+      placeholder: I'm passionate about helping the Mautic community because...
+    validations:
+      required: true
+      
+  - type: textarea
+    id: additional
+    attributes:
+      label: Additional Information
+      description: Anything else you'd like us to know?
+      placeholder: Other relevant skills, specific interests, availability patterns, etc.
+    validations:
+      required: false
+      
+  - type: checkboxes
+    id: agreements
+    attributes:
+      label: Moderator Agreements
+      description: Please confirm the following
+      options:
+        - label: I have read and fully understand the [Mautic Code of Conduct](https://www.mautic.org/code-of-conduct)
+          required: true
+        - label: I commit to enforcing the Code of Conduct consistently and fairly
+          required: true
+        - label: I understand moderators should lead by example in all forum interactions
+          required: true
+        - label: I commit to maintaining a welcoming environment for all community members regardless of background
+          required: true
+        - label: I understand that moderators must remain neutral in disputes
+          required: true
+        - label: I will maintain confidentiality regarding sensitive moderator discussions
+          required: true
+        - label: I understand this is a volunteer position
+          required: true
+          
+  - type: markdown
+    attributes:
+      value: |
+        ## Next Steps
+        
+        After submitting this form:
+        1. The forums team will review your application and forum history
+        2. You may be contacted for a brief discussion about the role
+        3. If selected, you'll receive category-specific moderation training
+        4. You'll be added to the moderator team for your selected category
+        5. After a successful period as a category moderator, you may be considered for broader responsibilities
+        
+        Please join the #t-education channel in Slack if you haven't already done so!
