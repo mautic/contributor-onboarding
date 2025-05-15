@@ -1,6 +1,6 @@
 name: Community Team Onboarding
 description: Request to join the Mautic Community Team
-title: "[Community] Onboarding request for: "
+title: "[Community] Onboarding request for: (enter your name here) "
 labels: ["onboarding", "community-team"]
 
 body:
