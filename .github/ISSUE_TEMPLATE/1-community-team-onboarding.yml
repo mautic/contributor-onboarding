@@ -2,8 +2,6 @@ name: Community Team Onboarding
 description: Request to join the Mautic Community Team
 title: "[Community] Onboarding request for: "
 labels: ["onboarding", "team-community"]
-assignees:
-  - YOUR_GITHUB_USERNAME
 
 body:
   - type: markdown
