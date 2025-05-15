@@ -1,0 +1,178 @@
+name: Product Team - Security Team
+description: Checklist for onboarding a new Security Team member
+title: "[Security] Onboarding for: (insert name here)"
+labels: ["onboarding", "security-team", "product-team"]
+
+body:
+  - type: markdown
+    attributes:
+      value: |
+        # Security Team Member Onboarding
+        
+        This issue tracks the onboarding process for a new Security Team member. This member has been approved to join as a provisional member for their first quarter, after which the team will decide on full membership.
+        
+        **IMPORTANT:** All steps involving credentials should be communicated securely. Do not include passwords or 2FA codes in this issue.
+        
+  - type: input
+    id: member_name
+    attributes:
+      label: Security Team Member Name
+      description: Full name of the new Security Team member
+      placeholder: Hiroshi Tanaka
+    validations:
+      required: true
+      
+  - type: input
+    id: personal_email
+    attributes:
+      label: Personal Email Address
+      description: Email address where communications will be sent
+      placeholder: hiroshi[@]example[.]com
+    validations:
+      required: true
+      
+  - type: input
+    id: github_username
+    attributes:
+      label: GitHub Username
+      description: GitHub username for team access
+      placeholder: hiroshi-dev
+    validations:
+      required: true
+      
+  - type: input
+    id: slack_username
+    attributes:
+      label: Slack Username
+      description: Username on the Mautic Slack workspace
+      placeholder: hiroshitanaka
+    validations:
+      required: true
+      
+  - type: input
+    id: jira_email
+    attributes:
+      label: Jira Email Address
+      description: Email used for Jira access (if different from personal email)
+      placeholder: hiroshi[@]example[.]com
+    validations:
+      required: false
+      
+  - type: input
+    id: provisional_period_end
+    attributes:
+      label: Provisional Period End Date
+      description: Date when the provisional period ends (1 year from your start date) (format YYYY-MM-DD)
+      placeholder: 2025-08-15
+    validations:
+      required: true
+      
+  - type: checkboxes
+    id: initial_approval
+    attributes:
+      label: (Team to complete) Initial Approval Confirmation
+      description: Team member confirm approval process is complete
+      options:
+        - label: Application has been reviewed and approved by the Security Team
+        - label: Provisional member status has been communicated to the applicant
+          
+  - type: checkboxes
+    id: nda_process
+    attributes:
+      label: (Team to complete) NDA Signing Process
+      description: Team member confirm the NDA signing process is complete
+      options:
+        - label: Prepare NDA document from the template
+        - label: Send NDA via Documenso for signing
+        - label: Confirm NDA has been signed and stored
+          
+  - type: checkboxes
+    id: account_setup
+    attributes:
+      label: (Team to complete) Account Setup
+      description: Create and configure necessary accounts
+      options:
+        - label: Create Google account (firstname.surname@mautic.org)
+        - label: Generate 2FA backup codes
+        - label: Send account details and 2FA codes securely
+        - label: Confirm receipt and successful login
+        - label: Confirm 2FA setup completed by member
+        - label: Add to Security Team Google Group
+          
+  - type: checkboxes
+    id: platform_access
+    attributes:
+      label: (Team to complete) Platform Access
+      description: Configure access to required platforms
+      options:
+        - label: Add to Security Team on GitHub (elevated privileges)
+        - label: Add to Security Team group on Jira
+        - label: Add to Security Team on Community Portal
+        - label: "Add to #security channel on Slack"
+          
+  - type: checkboxes
+    id: documentation_sharing
+    attributes:
+      label: (Team to complete) Documentation Sharing
+      description: Share critical documentation
+      options:
+        - label: Share workflow for dealing with security issues
+        - label: Share CVE ID management spreadsheet
+        - label: Share release workflow process
+        - label: Confirm member has reviewed the policy for community tools and resources
+        - label: Confirm member understands the elevated GitHub privileges and responsibilities
+          
+  - type: checkboxes
+    id: public_announcement
+    attributes:
+      label: (Team to complete) Public Announcement
+      description: Announce the new team member
+      options:
+        - label: Write announcement blog post
+        - label: Publish blog post
+        - label: Share announcement in relevant channels
+          
+  - type: textarea
+    id: additional_steps
+    attributes:
+      label: Additional Onboarding Steps
+      description: Any additional steps specific to this Security Team member
+      placeholder: Additional access requirements, specialized training, etc.
+    validations:
+      required: false
+      
+  - type: textarea
+    id: notes
+    attributes:
+      label: Notes
+      description: Any notes or issues encountered during the onboarding process
+      placeholder: Document any questions, concerns, or special circumstances
+    validations:
+      required: false
+      
+  - type: markdown
+    attributes:
+      value: |
+        ## Important Resources
+        
+        - [Community Tools Policy](https://contribute.mautic.org/policies/use-of-community-tools-and-resources)
+        - [GitHub Security Team](https://github.com/orgs/mautic/teams/security-team)
+        - [Security Team on Community Portal](https://community.mautic.org/assemblies/security-team)
+        
+        ## Process Timeline
+
+        (Team to complete)
+        
+        - Onboarding Start: (insert date)
+        - Provisional Period End: (insert date from above)
+        - Full Membership Decision: (insert date - should be at quarterly review)
+        
+        ## Process Owners
+        
+        (Team to complete) Please assign each section to the person responsible for completing those tasks:
+        
+        - NDA Process: 
+        - Account Setup: 
+        - Platform Access: 
+        - Documentation Sharing: 
+        - Public Announcement: 
