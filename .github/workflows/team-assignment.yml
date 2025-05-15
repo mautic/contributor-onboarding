@@ -3,6 +3,9 @@ name: Team Leader Round-Robin Assignment
 on:
   issues:
     types: [opened, labeled]
+permissions:
+  contents: write 
+  issues: write # We need write access to update the state file, so we can do round-robin assignment of issues.
 
 jobs:
   assign-team-leader:
