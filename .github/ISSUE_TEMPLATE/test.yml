@@ -19,3 +19,13 @@ body:
       placeholder: Aisha Chowdhury
     validations:
       required: true
+     
+  - type: input
+    id: email
+    attributes:
+      label: Email Address
+      description: Your preferred email for community communications, please write in the format aisha[@]example[.]com
+      placeholder: aisha[@]example[.]com
+    validations:
+      required: true
+      
