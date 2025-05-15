@@ -31,13 +31,11 @@ jobs:
           gh variable list -R ${{ github.repository }} | grep -q "LAST_ASSIGNED_PRODUCT_TEAM" || \
             gh variable set LAST_ASSIGNED_PRODUCT_TEAM -R ${{ github.repository }} -b "0"
         env:
-           # PAT on Ruth's account, 365 day validity.
           GH_TOKEN: ${{ secrets.REPO_PAT }}
           
       - name: Assign team leader
         uses: actions/github-script@v6
         with:
-             # PAT on Ruth's account, 365 day validity.
           github-token: ${{ secrets.REPO_PAT }}
           script: |
             const issue = context.payload.issue;
@@ -69,8 +67,7 @@ jobs:
                   encoding: 'utf8',
                   env: {
                     ...process.env,
-                    // Changed to GH_TOKEN
-                    GH_TOKEN: process.env.GITHUB_TOKEN 
+                    GH_TOKEN: '${{ secrets.REPO_PAT }}'
                   }
                 });
                 currentIndex = parseInt(output.trim()) || 0;
@@ -99,8 +96,7 @@ jobs:
                   encoding: 'utf8',
                   env: {
                     ...process.env,
-                    // Changed to GH_TOKEN
-                    GH_TOKEN: process.env.GITHUB_TOKEN
+                    GH_TOKEN: '${{ secrets.REPO_PAT }}'
                   }
                 });
                 console.log(`Updated ${varName} to ${nextIndex}`);
