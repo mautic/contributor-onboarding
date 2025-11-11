@@ -20,6 +20,7 @@ jobs:
     steps:
       - name: Check out repository
         uses: actions/checkout@v4
+
       - name: Check and create variables if needed
         run: |
           gh variable list -R ${{ github.repository }} | grep -q "LAST_ASSIGNED_COMMUNITY_TEAM" || \
@@ -35,10 +36,12 @@ jobs:
           gh variable list -R ${{ github.repository }} | grep -q "LAST_ASSIGNED_COUNCIL_MEMBER" || \
             gh variable set LAST_ASSIGNED_COUNCIL_MEMBER -R ${{ github.repository }} -b "0"
         env:
-          GH_TOKEN: ${{ secrets.REPO_PAT }}
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Assign team leader
         uses: actions/github-script@v7
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
@@ -46,7 +49,7 @@ jobs:
             const path = require('path');
             const issue = context.payload.issue;
             if (!issue) return;
-
+            
             const teamLeadsPath = path.join('.github', 'team-leads.json');
             let teamLeaders = {};
             try {
@@ -55,40 +58,29 @@ jobs:
               core.setFailed(`Failed to load team leads: ${e.message}`);
               return;
             }
-
+            
             const labelNames = issue.labels.map(label => label.name.toLowerCase());
             const matchingTeam = Object.keys(teamLeaders).find(team => labelNames.includes(team));
-
+            
             if (matchingTeam) {
               const leaders = teamLeaders[matchingTeam];
               const varName = `LAST_ASSIGNED_${matchingTeam.replace(/-/g, '_').toUpperCase()}`;
               const { execSync } = require('child_process');
               let currentIndex = 0;
               try {
-                const output = execSync(`gh variable get ${varName} -R ${process.env.GITHUB_REPOSITORY}`, { 
-                  encoding: 'utf8',
-                  env: {
-                    ...process.env,
-                    GH_TOKEN: process.env.GITHUB_TOKEN
-                  }
-                });
+                const output = execSync(`gh variable get ${varName} -R ${process.env.GITHUB_REPOSITORY}`, { encoding: 'utf8' });
                 currentIndex = parseInt(output.trim()) || 0;
                 core.info(`Current index for ${varName}: ${currentIndex}`);
               } catch (error) {
                 core.info(`Could not get variable ${varName}, using default 0`);
               }
-
+              
               // Calculate next index
               const nextIndex = (currentIndex + 1) % leaders.length;
-
+              
               // Set variable to next index
-              execSync(`gh variable set ${varName} -R ${process.env.GITHUB_REPOSITORY} -b "${nextIndex}"`, {
-                env: {
-                  ...process.env,
-                  GH_TOKEN: process.env.GITHUB_TOKEN
-                }
-              });
-
+              execSync(`gh variable set ${varName} -R ${process.env.GITHUB_REPOSITORY} -b "${nextIndex}"`, { encoding: 'utf8' });
+              
               // Assign the issue to the selected team lead
               const assignee = leaders[currentIndex];
               await github.rest.issues.addAssignees({
