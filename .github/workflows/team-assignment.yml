@@ -46,7 +46,9 @@ jobs:
               'community-team': ['EkkeGuembel', 'RCheesley'],
               'education-team': ['Favour-Chibueze', 'Fakela'],
               'marketing-team': ['SDoering', 'RCheesley'],
-              'product-team': ['Jos0405', 'shinde-rahul']
+              'product-team': ['Jos0405', 'shinde-rahul'],
+              'ambassador': ['rcheesley'],
+              'council-member': ['rcheesley']
             };
             
             // Get all label names
