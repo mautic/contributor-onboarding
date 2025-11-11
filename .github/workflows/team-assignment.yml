@@ -18,6 +18,8 @@ jobs:
       contains(github.event.issue.labels.*.name, 'ambassador') ||
       contains(github.event.issue.labels.*.name, 'council-member')
     steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
       - name: Check and create variables if needed
         run: |
           gh variable list -R ${{ github.repository }} | grep -q "LAST_ASSIGNED_COMMUNITY_TEAM" || \
