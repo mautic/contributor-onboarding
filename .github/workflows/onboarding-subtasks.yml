@@ -1,0 +1,133 @@
+name: Create Onboarding Sub-Tasks
+
+on:
+  issues:
+    types: [labeled]
+
+permissions:
+  issues: write
+
+jobs:
+  create-subtasks:
+    if: github.event.label.name == 'begin-onboarding'
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Read team-leads.json
+        id: team-leads
+        run: |
+          echo "TEAM_LEADS_JSON<<EOF" >> $GITHUB_ENV
+          cat .github/team-leads.json >> $GITHUB_ENV
+          echo "EOF" >> $GITHUB_ENV
+
+      - name: Check if the label was added by a team lead
+        id: check_team_lead
+        uses: actions/github-script@v7
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const fs = require('fs');
+            const issue = context.payload.issue;
+            const actor = context.actor;
+            let teamLeadsData = {};
+            try {
+              teamLeadsData = JSON.parse(fs.readFileSync('.github/team-leads.json', 'utf8'));
+            } catch (e) {
+              core.setFailed(`Failed to load team leads: ${e.message}`);
+              return;
+            }
+            const labelNames = issue.labels.map(label => label.name.toLowerCase());
+            let isTeamLead = false, assignedTeam = null;
+            for (const [team, leads] of Object.entries(teamLeadsData)) {
+              if (labelNames.includes(team)) {
+                assignedTeam = team;
+                if (leads.map(s => s.toLowerCase()).includes(actor.toLowerCase())) {
+                  isTeamLead = true;
+                  break;
+                }
+              }
+            }
+            core.setOutput('isTeamLead', isTeamLead ? 'true' : 'false');
+            core.setOutput('assignedTeam', assignedTeam);
+
+      - name: Comment if not a team lead
+        if: steps.check_team_lead.outputs.isTeamLead == 'false'
+        uses: actions/github-script@v7
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const assignedTeam = "${{ steps.check_team_lead.outputs.assignedTeam }}";
+            let message;
+            if (assignedTeam) {
+              message = `⚠️ Only a team lead for \`${assignedTeam}\` should assign the \`begin-onboarding\` label. If this was a mistake, please remove the label.`;
+            } else {
+              message = "⚠️ Only a relevant team lead should assign the `begin-onboarding` label. If this was a mistake, please remove the label.";
+            }
+            await github.rest.issues.createComment({
+              ...context.repo,
+              issue_number: context.issue.number,
+              body: message
+            });
+
+      - name: Create sub-issues and link as children
+        if: steps.check_team_lead.outputs.isTeamLead == 'true'
+        uses: actions/github-script@v7
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const parentIssueNumber = context.payload.issue.number;
+            const issue = context.payload.issue;
+            const labelNames = issue.labels.map(label => label.name.toLowerCase());
+
+            // Define sub-tasks for each team/label
+            const subTasksByTeam = {
+              "community-team": [
+                { title: "Community: Complete onboarding form", body: `Subtask of #${parentIssueNumber}` },
+                { title: "Community: Read onboarding guide", body: `Subtask of #${parentIssueNumber}` }
+              ],
+              "marketing-team": [
+                { title: "Marketing: Complete onboarding form", body: `Subtask of #${parentIssueNumber}` },
+                { title: "Marketing: Join marketing Slack", body: `Subtask of #${parentIssueNumber}` }
+              ],
+              "default": [
+                { title: "General Onboarding: Complete form", body: `Subtask of #${parentIssueNumber}` },
+                { title: "General Onboarding: Read docs", body: `Subtask of #${parentIssueNumber}` }
+              ]
+            };
+
+            // Find which team's tasks to use, fallback to default
+            const team = Object.keys(subTasksByTeam).find(t => labelNames.includes(t)) || "default";
+            const subTasks = subTasksByTeam[team];
+
+            const subIssueNumbers = [];
+            for (const subTask of subTasks) {
+              // 1. Create the sub-issue
+              const newIssue = await github.rest.issues.create({
+                ...context.repo,
+                title: subTask.title,
+                body: subTask.body,
+                labels: context.payload.issue.labels.map(l => l.name)
+              });
+              const childNumber = newIssue.data.number;
+              subIssueNumbers.push(childNumber);
+
+              // 2. Link the sub-issue as a child of the parent (GitHub Issues Sub-issue API)
+              await github.request('POST /repos/{owner}/{repo}/issues/{parent_issue_number}/relationships/issues', {
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                parent_issue_number: parentIssueNumber,
+                target_issue_number: childNumber,
+                relationship_type: 'child'
+              });
+            }
+
+            // Optionally: Also add a markdown checklist in the parent for manual progress tracking
+            const subIssueList = subIssueNumbers.map(n => `- [ ] #${n}`).join('\n');
+            const updatedBody =
+              `${context.payload.issue.body || ""}\n\n### Onboarding Tasks\n${subIssueList}`;
+
+            await github.rest.issues.update({
+              ...context.repo,
+              issue_number: parentIssueNumber,
+              body: updatedBody
+            });
