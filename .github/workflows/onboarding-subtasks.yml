@@ -15,13 +15,6 @@ jobs:
     steps:
       - name: Check out repository
         uses: actions/checkout@v4
-        
-      - name: Read team-leads.json
-        id: team-leads
-        run: |
-          echo "TEAM_LEADS_JSON<<EOF" >> $GITHUB_ENV
-          cat .github/team-leads.json >> $GITHUB_ENV
-          echo "EOF" >> $GITHUB_ENV
 
       - name: Check if the label was added by a team lead
         id: check_team_lead
