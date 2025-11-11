@@ -85,6 +85,7 @@ jobs:
                 { title: "Marketing: Complete onboarding form", body: `Subtask of #${parentIssueNumber}` },
                 { title: "Marketing: Join marketing Slack", body: `Subtask of #${parentIssueNumber}` }
               ],
+              // Add other teams and their subtasks here
               "default": [
                 { title: "General Onboarding: Complete form", body: `Subtask of #${parentIssueNumber}` },
                 { title: "General Onboarding: Read docs", body: `Subtask of #${parentIssueNumber}` }
@@ -107,14 +108,28 @@ jobs:
               const childNumber = newIssue.data.number;
               subIssueNumbers.push(childNumber);
 
-              // 2. Link the sub-issue as a child of the parent (GitHub Issues Sub-issue API)
-              await github.request('POST /repos/{owner}/{repo}/issues/{parent_issue_number}/relationships/issues', {
+              // 2. Debug log to check values
+              console.log('Linking sub-issue:', {
                 owner: context.repo.owner,
                 repo: context.repo.repo,
                 parent_issue_number: parentIssueNumber,
                 target_issue_number: childNumber,
                 relationship_type: 'child'
               });
+
+              // 3. Link the sub-issue as a child of the parent (GitHub Issues Sub-issue API)
+              try {
+                await github.request('POST /repos/{owner}/{repo}/issues/{parent_issue_number}/relationships/issues', {
+                  owner: context.repo.owner,
+                  repo: context.repo.repo,
+                  parent_issue_number: parentIssueNumber,
+                  target_issue_number: childNumber,
+                  relationship_type: 'child'
+                });
+              } catch(error) {
+                console.log('Sub-issue request error:', error);
+                throw error;
+              }
             }
 
             // Optionally: Also add a markdown checklist in the parent for manual progress tracking
