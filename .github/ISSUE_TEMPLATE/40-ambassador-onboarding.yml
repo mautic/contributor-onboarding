@@ -1,0 +1,186 @@
+name: "Ambassador Onboarding"
+description: "Share the details we need to onboard you as a Mautic Ambassador"
+title: "Onboard: [Your Name] — [Country/Region/University]"
+labels:
+  - ambassadors
+  - onboarding
+  - community
+assignees:
+  - rcheesley
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Welcome! This public issue helps us collect the details we need to get you set up as a Mautic Ambassador.
+        Please only share information you are happy to be public.
+
+        Learn more about the programme:
+        - Overview and application: https://mautic.org/become-a-mautic-ambassador
+        - Ambassador Handbook (reference sections: Training, Suggested activities, Funding and swag)
+
+        Need help? Ping us in Slack (#ambassadors) or email ambassador-support@mautic.org.
+
+  - type: input
+    id: name
+    attributes:
+      label: Your name
+      description: As you'd like it shown publicly
+      placeholder: "Jane Doe"
+    validations:
+      required: true
+
+  - type: dropdown
+    id: role
+    attributes:
+      label: Role type
+      description: Select your appointed role
+      options:
+        - Country Ambassador
+        - Regional Ambassador
+        - University Ambassador
+    validations:
+      required: true
+
+  - type: input
+    id: scope
+    attributes:
+      label: Your scope
+      description: Country name OR region/state/city OR university name
+      placeholder: "Portugal" 
+    validations:
+      required: true
+
+  - type: input
+    id: city
+    attributes:
+      label: Primary city (if applicable)
+      description: For country ambassadors, add the primary city where you'll start activities
+      placeholder: "Lisbon / Barcelona / Dhaka"
+    validations:
+      required: false
+
+  - type: input
+    id: languages
+    attributes:
+      label: Languages
+      description: Languages you can conduct events in
+      placeholder: "Portuguese, English"
+    validations:
+      required: true
+
+  - type: textarea
+    id: bio
+    attributes:
+      label: Short bio (80-120 words)
+      description: Used on the ambassadors page
+      placeholder: "Tell us about your work with Mautic, interests, and community focus."
+    validations:
+      required: true
+
+  - type: textarea
+    id: links
+    attributes:
+      label: Links to share publicly
+      description: Your website, forum profile, social profiles (optional)
+      placeholder: |
+        Website: 
+        Mautic Forum: 
+        LinkedIn:
+        Mastodon:
+        Twitter:
+        Facebook:
+        Instagram:
+        GitHub:
+    validations:
+      required: false
+
+  - type: input
+    id: headshot
+    attributes:
+      label: Public headshot URL
+      description: Link to a square image we can use on the website
+      placeholder: "https://example.com/your-photo.jpg"
+    validations:
+      required: false
+
+  - type: markdown
+    attributes:
+      value: |
+        ### First three events
+        Please provide details for your first three planned activities so we can add them to the community calendar and support promotion. 
+        If dates are tentative, note them as such. Include timezone.
+
+  - type: textarea
+    id: event1
+    attributes:
+      label: Event 1 — details
+      description: Date, time (with timezone), location/URL, language, short description, expected audience
+      placeholder: |
+        Date: 2025-11-28
+        Time: 18:00-19:30 Europe/Lisbon
+        Location: Impact Hub Lisbon (in-person) / or Zoom link
+        Language: Portuguese
+        Title/Description: Intro to Mautic + live demo
+        Expected audience: 20-30 marketers/developers
+    validations:
+      required: true
+
+  - type: textarea
+    id: event2
+    attributes:
+      label: Event 2 — details
+      description: Date, time (with timezone), location/URL, language, short description, expected audience
+      placeholder: |
+        Date: 2025-12-12
+        Time: 17:00-18:30 Asia/Dhaka
+        Location: Online (Zoom) — link TBC
+        Language: Bengali
+        Title/Description: Getting started workshop (hands-on)
+        Expected audience: 25 students
+    validations:
+      required: true
+
+  - type: textarea
+    id: event3
+    attributes:
+      label: Event 3 — details
+      description: Date, time (with timezone), location/URL, language, short description, expected audience
+      placeholder: |
+        Date: 2026-01-16 (tentative)
+        Time: 19:00-20:00 Asia/Kolkata
+        Location: Bengaluru — venue TBC
+        Language: English/Hindi
+        Title/Description: Community office hours + Q&A
+        Expected audience: 15-25 users
+    validations:
+      required: true
+
+  - type: input
+    id: locality-image
+    attributes:
+      label: Locality image (Freepik link)
+      description: Share a Freepik image URL that represents your locality (city/country/region) for use in marketing. Ensure it allows free use with attribution.
+      placeholder: "https://www.freepik.com/free-photo/example-image-url"
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: acknowledgements
+    attributes:
+      label: Acknowledgements
+      options:
+        - label: I agree to uphold the Mautic Code of Conduct
+          required: true
+        - label: I will follow brand/trademark guidelines and use provided assets/templates
+          required: true
+        - label: I understand events will be listed publicly and may be promoted by Mautic
+          required: true
+
+  - type: textarea
+    id: notes
+    attributes:
+      label: Notes or questions
+      description: Anything else we should know, or questions you have
+      placeholder: "Add any context or requests here."
+    validations:
+      required: false
