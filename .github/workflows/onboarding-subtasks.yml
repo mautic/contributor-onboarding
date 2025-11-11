@@ -45,6 +45,7 @@ jobs:
             }
             core.setOutput('isTeamLead', isTeamLead ? 'true' : 'false');
             core.setOutput('assignedTeam', assignedTeam);
+            core.setOutput('actor', actor);
 
       - name: Comment if not a team lead
         if: steps.check_team_lead.outputs.isTeamLead == 'false'
@@ -71,58 +72,83 @@ jobs:
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
-            const parentIssueNumber = context.payload.issue.number;
-            const issue = context.payload.issue;
-            const labelNames = issue.labels.map(label => label.name.toLowerCase());
+            const parentIssue = context.payload.issue;
+            const parentIssueNumber = parentIssue.number;
 
-            // Define sub-tasks for each team/label
+            // Original poster (issue creator)
+            const opener = parentIssue.user.login;
+
+            // Team lead (the actor who added the label and was validated)
+            const teamLeadAssignee = "${{ steps.check_team_lead.outputs.actor }}";
+
+            const labelNames = parentIssue.labels.map(label => label.name.toLowerCase());
+
+            // Per-task assignment rule:
+            // assignTo: "op"   -> assign to original poster
+            // assignTo: "lead" -> assign to team lead (fallback to opener if unavailable)
+            // You can add more rules by extending assignmentResolvers if needed.
             const subTasksByTeam = {
               "community-team": [
-                { title: "Community: Complete onboarding form", body: `Subtask of #${parentIssueNumber}` },
-                { title: "Community: Read onboarding guide", body: `Subtask of #${parentIssueNumber}` }
+                { title: "Community: Complete onboarding form", body: `Subtask of #${parentIssueNumber}`, assignTo: "op" },
+                { title: "Community: Read onboarding guide", body: `Subtask of #${parentIssueNumber}`, assignTo: "lead" }
               ],
               "marketing-team": [
-                { title: "Marketing: Complete onboarding form", body: `Subtask of #${parentIssueNumber}` },
-                { title: "Marketing: Join marketing Slack", body: `Subtask of #${parentIssueNumber}` }
+                { title: "Marketing: Complete onboarding form", body: `Subtask of #${parentIssueNumber}`, assignTo: "op" },
+                { title: "Marketing: Join marketing Slack", body: `Subtask of #${parentIssueNumber}`, assignTo: "lead" }
               ],
-              // Add other teams and their subtasks here
+              // Extend for additional teams if needed
               "default": [
-                { title: "General Onboarding: Complete form", body: `Subtask of #${parentIssueNumber}` },
-                { title: "General Onboarding: Read docs", body: `Subtask of #${parentIssueNumber}` }
+                { title: "General Onboarding: Complete form", body: `Subtask of #${parentIssueNumber}`, assignTo: "op" },
+                { title: "General Onboarding: Read docs", body: `Subtask of #${parentIssueNumber}`, assignTo: "lead" }
               ]
             };
 
-            // Find which team's tasks to use, fallback to default
-            const team = Object.keys(subTasksByTeam).find(t => labelNames.includes(t)) || "default";
-            const subTasks = subTasksByTeam[team];
+            // Decide which team's sub-tasks to use
+            const teamKey = Object.keys(subTasksByTeam).find(t => labelNames.includes(t)) || "default";
+            const subTasks = subTasksByTeam[teamKey];
 
-            // We'll collect numbers and ids for sub-issues
-            const subIssueNumbers = [];
-            const subIssueIds = [];
+            // Resolver for assignment tokens
+            function resolveAssignee(token) {
+              switch (token) {
+                case 'lead':
+                  return teamLeadAssignee || opener;
+                case 'op':
+                default:
+                  return opener;
+              }
+            }
+
+            const createdNumbers = [];
 
             for (const subTask of subTasks) {
-              // 1. Create the sub-issue
-              const newIssue = await github.rest.issues.create({
-                ...context.repo,
-                title: subTask.title,
-                body: subTask.body,
-                labels: context.payload.issue.labels.map(l => l.name)
-              });
+              const assignee = resolveAssignee(subTask.assignTo);
+
+              // Create sub-issue with chosen assignee
+              let newIssue;
+              try {
+                newIssue = await github.rest.issues.create({
+                  ...context.repo,
+                  title: subTask.title,
+                  body: subTask.body,
+                  labels: parentIssue.labels.map(l => l.name),
+                  assignees: [assignee]
+                });
+              } catch (e) {
+                // Fallback if assignee cannot be set (e.g., not a collaborator)
+                core.warning(`Failed to assign "${assignee}" to "${subTask.title}" (${e.status || e.message}). Retrying without assignee.`);
+                newIssue = await github.rest.issues.create({
+                  ...context.repo,
+                  title: subTask.title,
+                  body: subTask.body,
+                  labels: parentIssue.labels.map(l => l.name)
+                });
+              }
+
               const childNumber = newIssue.data.number;
               const childId = newIssue.data.id;
-              subIssueNumbers.push(childNumber);
-              subIssueIds.push(childId);
+              createdNumbers.push(childNumber);
 
-              // 2. Debug log to check values
-              console.log('Linking sub-issue:', {
-                owner: context.repo.owner,
-                repo: context.repo.repo,
-                issue_number: parentIssueNumber,
-                sub_issue_id: childId,
-                relationship_type: 'child'
-              });
-
-              // 3. Link the sub-issue as a child of the parent (GitHub Issues Sub-issue API)
+              // Link as sub-issue using official endpoint (requires issue id, not number)
               try {
                 await github.request('POST /repos/{owner}/{repo}/issues/{issue_number}/sub_issues', {
                   owner: context.repo.owner,
@@ -131,19 +157,18 @@ jobs:
                   sub_issue_id: childId,
                   replace_parent: false
                 });
-              } catch(error) {
-                console.log('Sub-issue request error:', error);
-                throw error;
+              } catch (linkErr) {
+                core.warning(`Failed to link sub-issue #${childNumber}: ${linkErr.message}`);
               }
             }
 
-            // Optionally: Also add a markdown checklist in the parent for manual progress tracking
-            const subIssueList = subIssueNumbers.map(n => `- [ ] #${n}`).join('\n');
-            const updatedBody =
-              `${context.payload.issue.body || ""}\n\n### Onboarding Tasks\n${subIssueList}`;
-
+            // Optional checklist appended to parent issue body
+            const checklist = createdNumbers.map(n => `- [ ] #${n}`).join('\n');
+            const updatedBody = `${parentIssue.body || ""}\n\n### Onboarding Tasks\n${checklist}`;
             await github.rest.issues.update({
               ...context.repo,
               issue_number: parentIssueNumber,
               body: updatedBody
             });
+
+            core.info(`Created and linked ${createdNumbers.length} sub-issues for team "${teamKey}".`)
