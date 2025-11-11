@@ -36,14 +36,14 @@ jobs:
           gh variable list -R ${{ github.repository }} | grep -q "LAST_ASSIGNED_COUNCIL_MEMBER" || \
             gh variable set LAST_ASSIGNED_COUNCIL_MEMBER -R ${{ github.repository }} -b "0"
         env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_TOKEN: ${{ secrets.REPO_PAT }}
 
       - name: Assign team leader
         uses: actions/github-script@v7
         env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_TOKEN: ${{ secrets.REPO_PAT }}
         with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
+          github-token: ${{ secrets.REPO_PAT }}
           script: |
             const fs = require('fs');
             const path = require('path');
