@@ -1,7 +1,7 @@
 name: Marketing Team - Content Writer
 description: Apply to contribute content to the Mautic blog and website
 title: "[Marketing-Content] Writer application for: (insert your name here)"
-labels: ["onboarding", "marketing-team"]
+labels: ["onboarding", "marketing-team", "marketing-content"]
 
 body:
   - type: markdown
