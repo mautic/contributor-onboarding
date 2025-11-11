@@ -96,7 +96,10 @@ jobs:
             const team = Object.keys(subTasksByTeam).find(t => labelNames.includes(t)) || "default";
             const subTasks = subTasksByTeam[team];
 
+            // We'll collect numbers and ids for sub-issues
             const subIssueNumbers = [];
+            const subIssueIds = [];
+
             for (const subTask of subTasks) {
               // 1. Create the sub-issue
               const newIssue = await github.rest.issues.create({
@@ -106,25 +109,27 @@ jobs:
                 labels: context.payload.issue.labels.map(l => l.name)
               });
               const childNumber = newIssue.data.number;
+              const childId = newIssue.data.id;
               subIssueNumbers.push(childNumber);
+              subIssueIds.push(childId);
 
               // 2. Debug log to check values
               console.log('Linking sub-issue:', {
                 owner: context.repo.owner,
                 repo: context.repo.repo,
-                parent_issue_number: parentIssueNumber,
-                target_issue_number: childNumber,
+                issue_number: parentIssueNumber,
+                sub_issue_id: childId,
                 relationship_type: 'child'
               });
 
               // 3. Link the sub-issue as a child of the parent (GitHub Issues Sub-issue API)
               try {
-                await github.request('POST /repos/{owner}/{repo}/issues/{parent_issue_number}/relationships/issues', {
+                await github.request('POST /repos/{owner}/{repo}/issues/{issue_number}/sub_issues', {
                   owner: context.repo.owner,
                   repo: context.repo.repo,
-                  parent_issue_number: parentIssueNumber,
-                  target_issue_number: childNumber,
-                  relationship_type: 'child'
+                  issue_number: parentIssueNumber,
+                  sub_issue_id: childId,
+                  replace_parent: false
                 });
               } catch(error) {
                 console.log('Sub-issue request error:', error);
